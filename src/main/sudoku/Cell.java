@@ -1,15 +1,12 @@
 package main.sudoku;
 
+import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA.
- * Date: 29/10/15
- * Time: 17:50
- * To change this template use File | Settings | File Templates.
+ * Created by Adri on 6/11/15.
  */
-
-
-public class Cell {
+public class Cell extends ArrayList<Cell> {
+    private static int Reg;
     int value;
     int column; //numero de columna
     int row; //numero de fila
@@ -17,9 +14,10 @@ public class Cell {
     boolean visible; //per veure si la casella és visible
     boolean written; //per veure si el valor ja venia donat en el joc o no
 
-    public Cell(int row, int column) {
+    public Cell(int row, int column, int reg) {
         this.column = column;
         this.row = row;
+        this.Reg = reg;
         written = false;
         visible = false;
         value = -1;
@@ -38,7 +36,9 @@ public class Cell {
     public int getColumn() {
         return column;
     }
-
+    static int getReg(){
+        return Reg;
+    }
     public int getRow() {
         return row;
     }
@@ -69,4 +69,5 @@ public class Cell {
     public void setAnnotation(int value, boolean annotation) {
         this.annotations[value - 1] = annotation;
     }*/
+
 }
