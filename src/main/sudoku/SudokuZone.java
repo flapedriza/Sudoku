@@ -15,9 +15,8 @@ class Row extends SudokuZone {
     void SudZone(int valor) {
         for (int j = 0; j < size; ++j) {falten.add(j);}
         for (int i = 0; i < size; i++) {
-            int reg = Cell.getReg();
-            int k = Board.getValueCell(valor, i, reg); //el valorde la cela es k
-            Celes.add(new Cell(valor, i, reg));
+            int k = Board.getValueCell(valor, i); //el valorde la cela es k
+            Celes.add(new Cell(valor, i));
             if (k != -1 && falten.contains(k)) {
                 usados.set(i, true);
                 falten.remove(k);
@@ -32,9 +31,8 @@ class Col extends SudokuZone{
     void SudZone(int valor){
         for (int i = 0; i < size; i++){falten.add(i);}
         for (int i = 0; i < size; i++) {
-            int reg = Cell.getReg();
-            int k  = Board.getValueCell(i, valor, reg);
-            Celes.add(new Cell(valor,i,reg));
+            int k  = SudokuBoard.getValueCell(i, valor);
+            Celes.add(new Cell(valor,i));
             if (k != -1 && falten.contains(k)){
                 usados.set(i,true);
                 falten.remove(k);
@@ -50,9 +48,8 @@ class Reg extends SudokuZone{
     void SudZone(int valor){
         for (int i = 0; i < tam; ++i) {
             for (int j = 0; j < tam; ++i){
-                int reg = Cell.getReg();
-                int k = Board.getValueCell(i,j,valor);
-                Celes.add(new Cell(valor,i,reg));
+                int k = Board.getValueCell(i,j);
+                Celes.add(new SudokuCell(i,j,valor));
                 if (k != -1 && falten.contains(k)) {
                     usados.set(i,true);
                     falten.remove(k);
@@ -61,46 +58,8 @@ class Reg extends SudokuZone{
             }
         }
     }
+   public void retornusats(ArrayList<Boolean> used){
+       //VOLS Que usats sigui int i falten bool? o ho deixo aixi?? mirat sudoku board perque hi ha algo que no li agrada al IntelIJ
+   }
 }
-/*public class SudokuZone {
-    public List SudokuZone(boolean fila, boolean col, boolean reg, int x) { //pasem un boolea depen del que volguem obtenir
-        List<Integer> listEstan = new ArrayList<Integer>(); //Declarem la llista
-        List<Integer> listFalten = new ArrayList<Integer>();
-        int size = Board.getSize();
-        double tam = size/Math.sqrt(size);
-        for (int i = 0; i < size; i++){listFalten.add(i);}
-        if (fila == true) { //vull les files
-            for (int i = 0; i < size; i++) {
-                int k  = Board.getValueCell1(x,i); //el valorde la cela es k
-                if (k != -1 && listFalten.contains(k)) {
-                    listEstan.add(k);
-                    listFalten.remove(k);
-                }
-            }
-        }
-        else if (col == true) { //vull les columnes
-            for (int i = 0; i < size; i++) {
-                int k  = Board.getValueCell1(i,x);
-                if (k != -1 && listFalten.contains(k)){
-                    listEstan.add(k);
-                    listFalten.remove(k);
-                }
-            }
-        }
-        else if (reg == true) { //vull les regions
-            for (int i = 0; i < tam; ++i) {
-                for (int j = 0; j < tam; ++i){
-                    int k = Board.getValueCell(i,j,x);
-                    if (k != -1 && listFalten.contains(k)) {
-                        listEstan.add(k);
-                        listFalten.remove(k);
-                    }
-
-                }
-            }
-        }
-        return listEstan,listFalten;
-    }
-}*/
-
 
