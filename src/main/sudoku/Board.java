@@ -1,36 +1,26 @@
 package main.sudoku;
 import java.util.*;
+
+
 /**
- * Created by Adri on 6/11/15.
+ * Created with IntelliJ IDEA.
+ * Date: 29/10/15
+ * Time: 17:48
+ * To change this template use File | Settings | File Templates.
  */
+
+
 public class Board {
     static int size;
     static int max_annotations = 9; //màxim nombre de marques que poden tenir les celes del taulell
-    static ArrayList<ArrayList<Cell>> board = new ArrayList<>(size);
+    static ArrayList<ArrayList<Cell>> board = new ArrayList<ArrayList<Cell>>(size);
 
-    public Board(int size) { //Clase arreclada per afegir la regio a la cela.
+    public Board(int size) {
         setSize(size);
-        double tam = Math.sqrt(size);
-        int reg = 1;
-        int contFil = 0;
-        int maxReg = 0;
-        int contSeg = 0; //tamany de una fila de regions
-        for (int i =0;i < size;++i) {
-            if (contSeg >= size*tam) {
-                contSeg = 0;
-                reg = maxReg+1;
-            }
-            if (contSeg < size* tam) reg -= tam-1;
+        for (int i=0;i < size;++i) {
             board.add(new ArrayList<Cell>(size));
             for (int j = 0; j < size; ++j) {
-                ++contFil;
-                ++contSeg;
-                if (contFil >= tam) {
-                    ++reg;
-                    contFil = 0;
-                    if (reg > maxReg) maxReg = reg;
-                }
-                board.get(i).add(new Cell(i,j,reg));
+                board.get(i).add(new Cell(i,j));
             }
         }
     }
@@ -43,15 +33,14 @@ public class Board {
         this.size = size;
     }
 
-    public static int getValueCell(int row, int column, int reg) {
-        return board.get(row).get(column).get(reg).getValue();
-    }
+    public static int getValueCell(int row, int column) {return (board.get(row).get(column).getValue());}
 
     public int getValue() {
         return this.getValue();
     }
+
     public void setValueCell(int value, int row, int column, int reg) {
-        board.get(row).get(column).get(reg).setValue(value);
+        board.get(row).get(column).setValue(value);
     }
 
     public static int consult_max_annotations(){
