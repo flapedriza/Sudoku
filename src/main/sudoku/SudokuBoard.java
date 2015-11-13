@@ -53,6 +53,17 @@ class SudokuBoard extends Board{
             regs.get(reg-1).falten.remove(value);
         }
 
+        public ArrayList<Integer> falten(int x, int y) {
+            int reg = (int) (1 + ((y-1)/Math.sqrt(size)) + ((x-1)/Math.sqrt(size))*Math.sqrt(size));
+            ArrayList<Integer> a = new ArrayList<>(rows.get(x-1).falten);
+            ArrayList<Integer> b = new ArrayList<>(cols.get(y-1).falten);
+            ArrayList<Integer> c = new ArrayList<>(cols.get(reg).falten);
+            a.retainAll(b);
+            a.retainAll(c);
+            return a;
+
+        }
+
         public static Reg getReg(int n){return regs.get(n-1);}
         public static Col getCol(int n) {return cols.get(n-1);}
         public static Row getRow(int n) {return rows.get(n-1);}
