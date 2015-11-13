@@ -19,7 +19,6 @@ class SudokuBoard extends Board{
             rows = new ArrayList<>(size);
             cols = new ArrayList<>(size);
             regs = new ArrayList<>(size);
-            for(int i = 0; i<size; ++i : rows) i = new Row();
             double tam = Math.sqrt(size);
             int reg = 1;
             int contFil = 0;
