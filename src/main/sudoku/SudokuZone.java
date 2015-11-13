@@ -23,6 +23,7 @@ class Row extends SudokuZone {
                 falten.remove(k);
             }
         }
+        retornfalten(falten); 
     }
 }
 class Col extends SudokuZone{
@@ -39,6 +40,7 @@ class Col extends SudokuZone{
                 falten.remove(k);
             }
         }
+        retornfalten(falten);
     }
 }
 class Reg extends SudokuZone{
