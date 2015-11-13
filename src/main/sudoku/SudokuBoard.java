@@ -1,5 +1,6 @@
 package main.sudoku;
-import java.util.*;
+
+import java.util.ArrayList;
 
 /**
  * Created by Adri on 12/11/15.
@@ -44,11 +45,11 @@ class SudokuBoard extends Board{
         @Override
         public void setValueCell(int value, int row, int column) {
             int reg = (int) (1 + ((column-1)/Math.sqrt(size)) + ((row-1)/Math.sqrt(size))*Math.sqrt(size));
-            rows.get(row-1).usados.set(value-1, true);//true el valor a la row
+            rows.get(row-1).usats.set(value-1, true);//true el valor a la row
             rows.get(row-1).falten.remove(value);
-            cols.get(column-1).usados.set(value- 1, true);//Col
+            cols.get(column-1).usats.set(value- 1, true);//Col
             cols.get(column-1).falten.remove(value);
-            regs.get(reg-1).usados.set(value - 1, true);//Reg
+            regs.get(reg-1).usats.set(value - 1, true);//Reg
             regs.get(reg-1).falten.remove(value);
         }
 
