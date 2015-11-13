@@ -114,6 +114,9 @@ public class SudokuGenerator {
             ArrayList<Integer> falts = board.falten(actualRowCol.first, actualRowCol.second);
             int num = falts.get(random.nextInt(falts.size()));
             board.setValueCell(num, actualRowCol.first, actualRowCol.second);
+            updatecol(actualelem.first, cells);
+            updatereg(actualelem.first, cells);
+            updaterow(actualelem.first, cells);
             cells.remove(actualelem);
         }
     }
