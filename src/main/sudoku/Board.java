@@ -39,7 +39,7 @@ public class Board {
         return this.getValue();
     }
 
-    public void setValueCell(int value, int row, int column, int reg) {
+    public void setValueCell(int value, int row, int column) {
         board.get(row).get(column).setValue(value);
     }
 
