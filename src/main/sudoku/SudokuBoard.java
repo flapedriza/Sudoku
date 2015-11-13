@@ -39,23 +39,23 @@ class SudokuBoard extends Board{
                 }
             }
         }
-
+        public enum Difficulty { EASY, NORMAL, HARD}
 
         @Override
-        public void setValueCell(int value, int row, int column,int reg) {
+        public void setValueCell(int value, int row, int column) {
+            int reg = (int) (1 + ((column-1)/Math.sqrt(size)) + ((row-1)/Math.sqrt(size))*Math.sqrt(size));
             rows.get(row-1).usados.set(value-1, true);//true el valor a la row
-            rows.get(row-1).falten.add(value);
-            //rows.get(row-1).Celes.get; CELES HOFEM SERVIR O NO?????
-            cols.get(column-1).usados.set(value-1, true);//Col
-            cols.get(column-1).falten.add(value);
-            //cols.get(column-1).Celes.;
-            regs.get(reg-1).usados.set(value-1, true);//Reg
-            regs.get(reg-1).falten.add(value);
-            //regs.get(reg-1).Celes.
+            rows.get(row-1).falten.remove(value);
+            cols.get(column-1).usados.set(value- 1, true);//Col
+            cols.get(column-1).falten.remove(value);
+            regs.get(reg-1).usados.set(value - 1, true);//Reg
+            regs.get(reg-1).falten.remove(value);
         }
 
         public static Reg getReg(int n){return regs.get(n-1);}
         public static Col getCol(int n) {return cols.get(n-1);}
         public static Row getRow(int n) {return rows.get(n-1);}
+
 }
+
 
