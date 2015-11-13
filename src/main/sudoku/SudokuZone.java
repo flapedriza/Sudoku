@@ -1,4 +1,5 @@
 package main.sudoku;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,12 +55,13 @@ class Reg extends SudokuZone{
                     usados.set(i,true);
                     falten.remove(k);
                 }
-
             }
         }
+        retornfalten(falten);
     }
-   public void retornusats(ArrayList<Boolean> used){
-       //VOLS Que usats sigui int i falten bool? o ho deixo aixi?? mirat sudoku board perque hi ha algo que no li agrada al IntelIJ
-   }
-}
 
+    private ArrayList<Integer> retornfalten(ArrayList<Integer> falten) {
+        return falten;
+    }
+
+}
