@@ -98,14 +98,10 @@ public class SudokuGenerator {
     }
 
     private int pickRandom(TreeSet<Integer> set) {
-        int a = set.size();
-        int elem = random.nextInt(a);
-        int i = 0;
-        for(int j : set) {
-            if(i == elem) a = j;
-            i++;
-        }
-        return a;
+        int elem = random.nextInt(set.size());
+        Iterator<Integer> it = set.iterator();
+        for(int i = 0; i< elem; i++) it.next();
+        return it.next();
     }
 
     private void removecell(SudokuBoard board){}
