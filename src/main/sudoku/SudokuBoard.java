@@ -66,7 +66,8 @@ class SudokuBoard extends Board{
         return a;
 
     }
-    public void erase (int value,int row,int col ){
+    public void erase (int row,int col ){
+        int value = board.get(row).get(col).getValue();
         int reg = (int) (1 + ((col-1)/Math.sqrt(size)) + ((row-1)/Math.sqrt(size))*Math.sqrt(size));
         rows.get(row-1).usats.set(value-1,false);
         rows.get(row-1).falten.add(value);

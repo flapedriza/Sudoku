@@ -14,4 +14,16 @@ public class SudokuCell extends Cell {
         row = SudokuBoard.getRow(fila);
         for (int i = 0; i < annotations.length; i++) annotations[i] = false;
     }
+
+    public Reg getRegZone() {
+        return reg;
+    }
+
+    public Col getColZone() {
+        return col;
+    }
+
+    public Row getRowZone() {
+        return row;
+    }
 }
