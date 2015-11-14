@@ -54,6 +54,11 @@ public class SudokuCellDriver {
 
     public static void main(String[] args) {
         cell = new SudokuCell(1, 1, 1);
+        setValue();
+        printColumn();
+        printReg();
+        printRow();
+        printValue();
 
     }
 }
