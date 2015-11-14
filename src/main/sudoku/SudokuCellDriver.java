@@ -1,5 +1,7 @@
 package main.sudoku;
 
+import java.util.Scanner;
+
 /**
  * Created by Francesc on 14/11/2015.
  */
@@ -10,7 +12,9 @@ public class SudokuCellDriver {
         System.out.println("El valor de la cel·la és: "+cell.getValue());
     }
 
-    private static void setValue(int value) {
+    private static void setValue() {
+        Scanner reader = new Scanner(System.in);
+        int value = reader.nextInt();
         cell.setValue(value);
     }
 
@@ -49,6 +53,7 @@ public class SudokuCellDriver {
     }
 
     public static void main(String[] args) {
+        cell = new SudokuCell(1, 1, 1);
 
     }
 }
