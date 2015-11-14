@@ -74,11 +74,10 @@ class SudokuBoard extends Board{
         cols.get(col-1).falten.add(value);
         regs.get(reg-1).usats.set(value - 1, false);//Reg
         regs.get(reg-1).falten.add(value);
-        board.get(row).remove(new Cell(row,col));
+        board.get(row).get(col).visible=false;
     }
     public static Reg getReg(int n){return regs.get(n-1);}
     public static Col getCol(int n) {return cols.get(n-1);}
     public static Row getRow(int n) {return rows.get(n-1);}
 
 }
-
