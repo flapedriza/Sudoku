@@ -1,10 +1,7 @@
 package main.sudoku;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Francesc on 7/11/2015.
@@ -100,6 +97,17 @@ public class SudokuGenerator {
         }
     }
 
+    private int pickRandom(TreeSet<Integer> set) {
+        int a = set.size();
+        int elem = random.nextInt(a);
+        int i = 0;
+        for(int j : set) {
+            if(i == elem) a = j;
+            i++;
+        }
+        return a;
+    }
+
     private void removecell(SudokuBoard board){}
 
     private void create(SudokuBoard board) {
@@ -111,8 +119,8 @@ public class SudokuGenerator {
         for(int i = 0; i<size*size; ++i) {
             Pair actualelem = Collections.min(cells, new PairComparator());
             Pair actualRowCol = rowColFromNum(actualelem.first);
-            ArrayList<Integer> falts = board.falten(actualRowCol.first, actualRowCol.second);
-            int num = falts.get(random.nextInt(falts.size()));
+            TreeSet<Integer> falts = board.falten(actualRowCol.first, actualRowCol.second);
+            int num = pickRandom(falts);
             board.setValueCell(num, actualRowCol.first, actualRowCol.second);
             updatecol(actualelem.first, cells);
             updatereg(actualelem.first, cells);

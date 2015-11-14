@@ -1,6 +1,7 @@
 package main.sudoku;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
  * Created by Adri on 12/11/15.
@@ -56,11 +57,11 @@ class SudokuBoard extends Board{
         regs.get(reg-1).falten.remove(value);
     }
 
-    public ArrayList<Integer> falten(int x, int y) {
+    public TreeSet<Integer> falten(int x, int y) {
         int reg = (int) (1 + ((y-1)/Math.sqrt(size)) + ((x-1)/Math.sqrt(size))*Math.sqrt(size));
-        ArrayList<Integer> a = new ArrayList<>(rows.get(x-1).falten);
-        ArrayList<Integer> b = new ArrayList<>(cols.get(y-1).falten);
-        ArrayList<Integer> c = new ArrayList<>(cols.get(reg).falten);
+        TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
+        TreeSet<Integer> b = new TreeSet<>(cols.get(y-1).falten);
+        TreeSet<Integer> c = new TreeSet<>(cols.get(reg).falten);
         a.retainAll(b);
         a.retainAll(c);
         return a;

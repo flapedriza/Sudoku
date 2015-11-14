@@ -1,17 +1,18 @@
 package main.sudoku;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public abstract class SudokuZone {
     //protected int size = Board.getSize();//com que es protected ja podem ferho servir a les subclases
     protected int valor; //a es el valor de la fila que busquem
     protected ArrayList<Boolean> usats;
-    protected ArrayList<Integer> falten;
+    protected TreeSet<Integer> falten;
     protected ArrayList<SudokuCell> celes;
 
     public SudokuZone(int size, int valor) {
         this.usats = new ArrayList<>();
-        this.falten = new ArrayList<>();
+        this.falten = new TreeSet<>();
         this.valor = valor;
         for(int i = 0; i<size; ++i) usats.add(false);
         for(int i = 0; i<size; ++i) falten.add(i+1);
