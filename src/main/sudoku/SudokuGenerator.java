@@ -38,17 +38,15 @@ public class SudokuGenerator {
     static int min_cells;
     static int max_cells;
     public int size;
-    Random random;
     boolean finished;
 
     public SudokuGenerator(Difficulty dif, int size) {
         this.size = size;
         this.difficulty = dif;
-        this.random = new Random();
+        this.finished = false;
 
     }
     public void generate(SudokuBoard board) {
-        finished = false;
         create(board,1);
         finished = false;
         /*int diff;
