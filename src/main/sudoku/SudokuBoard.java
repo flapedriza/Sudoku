@@ -87,6 +87,24 @@ class SudokuBoard extends Board{
         regs.get(reg-1).falten.add(value);
         board.get(row).get(col).visible=false;
     }
+
+    /*public int getValueCell(int x, int y) {
+        return board.get(x-1).get(y-1).getValue();
+    }*/
+
+    public void print() {
+        int bar = (int) (Math.sqrt(size));
+        for(int i=0;i<size;++i) {
+            System.out.print(getValueCell(i,0));
+            for(int j=1;j<size;++j) {
+                System.out.print(" "+getValueCell(i,j));
+                if((j+1)%bar == 0 && j != size-1) System.out.print(" |");
+            }
+            System.out.println();
+            if((i+1)%bar == 0 && i!= size-1) System.out.println("- - - + - - - + - - -");
+
+        }
+    }
     public static Reg getReg(int n){return regs.get(n-1);}
     public static Col getCol(int n) {return cols.get(n-1);}
     public static Row getRow(int n) {return rows.get(n-1);}
