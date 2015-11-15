@@ -45,7 +45,7 @@ public class SudokuGenerator {
     }
     public void generate(SudokuBoard board) {
         create(board);
-        int diff;
+        /*int diff;
         Boolean done;
         switch (difficulty) {
             case EASY : diff = easy_threshold;
@@ -60,7 +60,7 @@ public class SudokuGenerator {
         do {
             removecell(board);
             done = true;//(Solver.evaluate(board) > diff);
-        } while (!done );
+        } while (!done );*/
 
     }
 
