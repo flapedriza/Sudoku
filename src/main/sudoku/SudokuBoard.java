@@ -7,20 +7,30 @@ import java.util.TreeSet;
  * Created by Adri on 12/11/15.
  */
 class SudokuBoard extends Board{
-    static int size;
-    static int max_annotations = 9; //màxim nombre de marques que poden tenir les celes del taulell
-    static ArrayList<ArrayList<SudokuCell>> board = new ArrayList<>(size);
+    static ArrayList<ArrayList<SudokuCell>> board;
     static ArrayList<Row> rows;
     static ArrayList<Col> cols;
     static ArrayList<Reg> regs;
 
     public SudokuBoard(int size) {
         super(size); //Clase arreclada per afegir la regio a la cela.
-        setSize(size);
-        rows = new ArrayList<>(size);
-        cols = new ArrayList<>(size);
-        regs = new ArrayList<>(size);
-        double tam = Math.sqrt(size);
+        board = new ArrayList<>();
+        rows = new ArrayList<>();
+        cols = new ArrayList<>();
+        regs = new ArrayList<>();
+        for(int i = 1; i<=size;++i) {
+            rows.add(new Row(size, i));
+            cols.add(new Col(size, i));
+            regs.add(new Reg(size, i));
+        }
+        for(int i=0;i<size;++i) {
+            board.add(new ArrayList<SudokuCell>());
+            for(int j=0;j<size;++j) {
+                int reg = region(i+1,j+1);
+                board.get(i).add(new SudokuCell(i+1,j+1,reg));
+            }
+        }
+        /*double tam = Math.sqrt(size);
         int reg = 1;
         int contFil = 0;
         int maxReg = 0;
@@ -42,13 +52,12 @@ class SudokuBoard extends Board{
                 }
                 board.get(i).add(new SudokuCell(i,j,reg));
             }
-        }
+        }*/
     }
-    public enum Difficulty { EASY, NORMAL, HARD}
 
     @Override
     public void setValueCell(int value, int row, int column) {
-        int reg = (int) (1 + ((column-1)/Math.sqrt(size)) + ((row-1)/Math.sqrt(size))*Math.sqrt(size));
+        int reg = region(row, column);
         rows.get(row-1).usats.set(value-1, true);//true el valor a la row
         rows.get(row-1).falten.remove(value);
         cols.get(column-1).usats.set(value- 1, true);//Col
@@ -58,7 +67,7 @@ class SudokuBoard extends Board{
     }
 
     public TreeSet<Integer> falten(int x, int y) {
-        int reg = (int) (1 + ((y-1)/Math.sqrt(size)) + ((x-1)/Math.sqrt(size))*Math.sqrt(size));
+        int reg = region(x, y);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
         TreeSet<Integer> b = new TreeSet<>(cols.get(y-1).falten);
         TreeSet<Integer> c = new TreeSet<>(cols.get(reg).falten);
@@ -69,7 +78,7 @@ class SudokuBoard extends Board{
     }
     public void erase (int row,int col ){
         int value = board.get(row).get(col).getValue();
-        int reg = (int) (1 + ((col-1)/Math.sqrt(size)) + ((row-1)/Math.sqrt(size))*Math.sqrt(size));
+        int reg = region(row, col);
         rows.get(row-1).usats.set(value-1,false);
         rows.get(row-1).falten.add(value);
         cols.get(col-1).usats.set(value- 1, false);//Col
@@ -81,5 +90,10 @@ class SudokuBoard extends Board{
     public static Reg getReg(int n){return regs.get(n-1);}
     public static Col getCol(int n) {return cols.get(n-1);}
     public static Row getRow(int n) {return rows.get(n-1);}
+
+    private int region(int row, int column) {
+        int tam = (int) (Math.sqrt(size));
+        return 1 + (column-1)/tam + ((row-1)/tam)*tam;
+    }
 
 }
