@@ -7,10 +7,10 @@ import java.util.TreeSet;
  * Created by Adri on 12/11/15.
  */
 class SudokuBoard extends Board{
-    static ArrayList<ArrayList<SudokuCell>> board;
-    static ArrayList<Row> rows;
-    static ArrayList<Col> cols;
-    static ArrayList<Reg> regs;
+    ArrayList<ArrayList<SudokuCell>> board;
+    ArrayList<Row> rows;
+    ArrayList<Col> cols;
+    ArrayList<Reg> regs;
 
     public SudokuBoard(int size) {
         super(size); //Clase arreclada per afegir la regio a la cela.
@@ -27,7 +27,7 @@ class SudokuBoard extends Board{
             board.add(new ArrayList<SudokuCell>());
             for(int j=0;j<size;++j) {
                 int reg = region(i+1,j+1);
-                board.get(i).add(new SudokuCell(i+1,j+1,reg));
+                board.get(i).add(new SudokuCell(rows.get(i),cols.get(j),regs.get(reg-1)));
             }
         }
         /*double tam = Math.sqrt(size);
@@ -56,14 +56,27 @@ class SudokuBoard extends Board{
     }
 
     @Override
-    public void setValueCell(int value, int row, int column) {
+    public boolean setValueCell(int value, int row, int column) {
+        if(value == 0 || value == -1) {
+            board.get(row-1).get(column-1).setValue(value);
+            return true;
+        }
         int reg = region(row, column);
-        rows.get(row-1).usats.set(value-1, true);//true el valor a la row
-        rows.get(row-1).falten.remove(value);
-        cols.get(column-1).usats.set(value- 1, true);//Col
-        cols.get(column-1).falten.remove(value);
-        regs.get(reg-1).usats.set(value - 1, true);//Reg
-        regs.get(reg-1).falten.remove(value);
+        Row rowz = rows.get(row-1);
+        Col colz = cols.get(column-1);
+        Reg regz = regs.get(reg-1);
+        if(!rowz.usats.get(value-1) && !colz.usats.get(value-1) && !regz.usats.get(value-1)) {
+            board.get(row-1).get(column-1).setValue(value);
+            rowz.usats.set(value-1, true);
+            colz.usats.set(value-1, true);
+            regz.usats.set(value-1, true);
+            rowz.falten.remove(value);
+            colz.falten.remove(value);
+            regz.falten.remove(value);
+            System.out.println("Value of cell "+row+" "+column+" has been set to "+getValueCell(row-1, column-1));
+            return true;
+        }
+        else return false;
     }
 
     public TreeSet<Integer> falten(int x, int y) {
@@ -105,9 +118,16 @@ class SudokuBoard extends Board{
 
         }
     }
-    public static Reg getReg(int n){return regs.get(n-1);}
-    public static Col getCol(int n) {return cols.get(n-1);}
-    public static Row getRow(int n) {return rows.get(n-1);}
+
+
+
+    @Override
+    public int getValueCell(int row, int column) {
+        return board.get(row).get(column).getValue();
+    }
+    public Reg getReg(int n){return regs.get(n-1);}
+    public Col getCol(int n) {return cols.get(n-1);}
+    public Row getRow(int n) {return rows.get(n-1);}
 
     private int region(int row, int column) {
         int tam = (int) (Math.sqrt(size));

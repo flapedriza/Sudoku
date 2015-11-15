@@ -36,6 +36,7 @@ public class SudokuGenerator {
     static int max_cells;
     public int size;
     Random random;
+    boolean finished;
 
     public SudokuGenerator(Difficulty dif, int size) {
         this.size = size;
@@ -44,7 +45,9 @@ public class SudokuGenerator {
 
     }
     public void generate(SudokuBoard board) {
-        create(board);
+        finished = false;
+        create(board,1);
+        finished = false;
         /*int diff;
         Boolean done;
         switch (difficulty) {
@@ -72,8 +75,9 @@ public class SudokuGenerator {
     }
 
     private int regFromNum(int n) {
-        Pair rowcol = rowColFromNum(n);
-        return (int) (1 + ((rowcol.second-1)/Math.sqrt(size)) + ((rowcol.first-1)/Math.sqrt(size))*Math.sqrt(size));
+        Pair rc = rowColFromNum(n);
+        int tam = (int) (Math.sqrt(size));
+        return 1 + (rc.second-1)/tam + ((rc.first-1)/tam)*tam;
     }
 
     private void updaterow(int n, ArrayList<Pair> a) {
@@ -107,22 +111,45 @@ public class SudokuGenerator {
     //TODO
     private void removecell(SudokuBoard board){}
 
-    private void create(SudokuBoard board) {
-        ArrayList<Pair> cells = new ArrayList<>();
+    private void create(SudokuBoard board, int i) {
+        /*ArrayList<Pair> cells = new ArrayList<>();
         for(int i = 0; i<size*size; ++i) {
             cells.add(new Pair(i+1, size));
         }
         Collections.shuffle(cells);
+        System.out.println(cells.size());
         for(int i = 0; i<size*size; ++i) {
-            Pair actualelem = Collections.min(cells, new PairComparator());
+            Pair actualelem = cells.get(i);//Collections.min(cells, new PairComparator());
             Pair actualRowCol = rowColFromNum(actualelem.first);
             TreeSet<Integer> falts = board.falten(actualRowCol.first, actualRowCol.second);
-            int num = pickRandom(falts);
-            board.setValueCell(num, actualRowCol.first, actualRowCol.second);
+            int num;
+            if(falts.size() > 0) num = pickRandom(falts);
+            else num = 0;
+            if(num != 0) board.setValueCell(num, actualRowCol.first, actualRowCol.second);
+            else board.board.get(actualRowCol.first).get(actualRowCol.second).value = 0;
             updatecol(actualelem.first, cells);
             updatereg(actualelem.first, cells);
             updaterow(actualelem.first, cells);
             cells.remove(actualelem);
+            System.out.println(i+"Iterations");
+        }
+    }*/
+        if(!finished) {
+            Pair rc = rowColFromNum(i);
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int k = 1; k<size+1;++k) list.add(k);
+            Collections.shuffle(list);
+            for(int n = 0; n<size;++n) {
+                int m = list.get(n);
+                if(board.setValueCell(m, rc.first, rc.second)) {
+                    if(i == size*size) {
+                        finished = true;
+                        return;
+                    }
+                    else create(board, i+1);
+                }
+                //board.setValueCell(0, rc.first, rc.second);
+            }
         }
     }
 }

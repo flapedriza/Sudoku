@@ -7,6 +7,8 @@ public class Main {
         SudokuBoard board = new SudokuBoard(9);
         SudokuGenerator gen = new SudokuGenerator(SudokuGenerator.Difficulty.EASY, 9);
         gen.generate(board);
+        //if(board.setValueCell(3, 8, 2)) System.out.println("GOOD");
+        //if(board.setValueCell(3, 1, 1)) System.out.println("HEY!");
         board.print();
     }
 }

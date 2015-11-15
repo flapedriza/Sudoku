@@ -7,11 +7,12 @@ public class SudokuCell extends Cell {
     Reg reg;
     Col col;
     Row row;
-    public SudokuCell(int fila, int column, int regio) {
-        super(column,fila);
-        reg = SudokuBoard.getReg(regio);
-        col = SudokuBoard.getCol(column);
-        row = SudokuBoard.getRow(fila);
+    public SudokuCell(Row fila, Col column, Reg regio) {
+        super(column.valor,fila.valor);
+        reg = regio;
+        col = column;
+        row = fila;
+        value = 0;
         for (int i = 0; i < annotations.length; i++) annotations[i] = false;
     }
 

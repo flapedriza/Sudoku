@@ -1,5 +1,6 @@
 package main.sudoku;
-import java.util.*;
+
+import java.util.ArrayList;
 
 
 /**
@@ -33,14 +34,15 @@ public class Board {
         this.size = size;
     }
 
-    public static int getValueCell(int row, int column) {return (board.get(row).get(column).getValue());}
+    public int getValueCell(int row, int column) {return (board.get(row).get(column).getValue());}
 
     public int getValue() {
         return this.getValue();
     }
 
-    public void setValueCell(int value, int row, int column) {
+    public boolean setValueCell(int value, int row, int column) {
         board.get(row).get(column).setValue(value);
+        return true;
     }
 
     public static int consult_max_annotations(){
