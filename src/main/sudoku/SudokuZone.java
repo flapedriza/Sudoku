@@ -2,7 +2,9 @@ package main.sudoku;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
-
+/**
+ * Created by Adri on 12/11/15.
+ */
 public abstract class SudokuZone {
     //protected int size = Board.getSize();//com que es protected ja podem ferho servir a les subclases
     protected int valor; //a es el valor de la fila que busquem
