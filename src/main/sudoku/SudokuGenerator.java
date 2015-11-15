@@ -1,7 +1,10 @@
 package main.sudoku;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Random;
 
 /**
  * Created by Francesc on 7/11/2015.
@@ -68,87 +71,31 @@ public class SudokuGenerator {
     }
 
     private Pair rowColFromNum(int n) {
-        int row = n/size+1;
-        int col = n%size;
-        if(col == 0) col = size;
-        return new Pair(row, col);
-    }
-
-    private int regFromNum(int n) {
-        Pair rc = rowColFromNum(n);
-        int tam = (int) (Math.sqrt(size));
-        return 1 + (rc.second-1)/tam + ((rc.first-1)/tam)*tam;
-    }
-
-    private void updaterow(int n, ArrayList<Pair> a) {
-        for(Pair i : a) {
-            int row = rowColFromNum(i.first).first;
-            if(row == n) --i.second;
-        }
-    }
-
-    private void updatecol(int n, ArrayList<Pair> a) {
-        for(Pair i : a) {
-            int col = rowColFromNum(i.first).first;
-            if(col == n) --i.second;
-        }
-    }
-
-    private void updatereg(int n, ArrayList<Pair> a) {
-        for(Pair i : a) {
-            int reg = regFromNum(i.first);
-            if(reg == n) --i.second;
-        }
-    }
-
-    private int pickRandom(TreeSet<Integer> set) {
-        int elem = random.nextInt(set.size());
-        Iterator<Integer> it = set.iterator();
-        for(int i = 0; i< elem; i++) it.next();
-        return it.next();
+        int m = n-1;
+        int row = m/size;
+        int col = m%size;
+        return new Pair(row+1, col+1);
     }
 
     //TODO
     private void removecell(SudokuBoard board){}
 
-    private void create(SudokuBoard board, int i) {
-        /*ArrayList<Pair> cells = new ArrayList<>();
-        for(int i = 0; i<size*size; ++i) {
-            cells.add(new Pair(i+1, size));
-        }
-        Collections.shuffle(cells);
-        System.out.println(cells.size());
-        for(int i = 0; i<size*size; ++i) {
-            Pair actualelem = cells.get(i);//Collections.min(cells, new PairComparator());
-            Pair actualRowCol = rowColFromNum(actualelem.first);
-            TreeSet<Integer> falts = board.falten(actualRowCol.first, actualRowCol.second);
-            int num;
-            if(falts.size() > 0) num = pickRandom(falts);
-            else num = 0;
-            if(num != 0) board.setValueCell(num, actualRowCol.first, actualRowCol.second);
-            else board.board.get(actualRowCol.first).get(actualRowCol.second).value = 0;
-            updatecol(actualelem.first, cells);
-            updatereg(actualelem.first, cells);
-            updaterow(actualelem.first, cells);
-            cells.remove(actualelem);
-            System.out.println(i+"Iterations");
-        }
-    }*/
+    private void create(SudokuBoard board, Integer rec) {
         if(!finished) {
-            Pair rc = rowColFromNum(i);
+            Pair rc = rowColFromNum(rec);
             ArrayList<Integer> list = new ArrayList<>();
             for(int k = 1; k<size+1;++k) list.add(k);
             Collections.shuffle(list);
-            for(int n = 0; n<size;++n) {
+            for(int n = 0; n<size&&!finished;++n) {
                 int m = list.get(n);
                 if(board.setValueCell(m, rc.first, rc.second)) {
-                    if(i == size*size) {
+                    if(rec.equals(size*size)) {
                         finished = true;
                         return;
                     }
-                    else create(board, i+1);
+                    else create(board, rec+1);
                 }
-                //board.setValueCell(0, rc.first, rc.second);
+                if(!finished)board.setValueCell(0, rc.first, rc.second);
             }
         }
     }

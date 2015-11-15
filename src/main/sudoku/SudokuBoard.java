@@ -57,14 +57,23 @@ class SudokuBoard extends Board{
 
     @Override
     public boolean setValueCell(int value, int row, int column) {
-        if(value == 0 || value == -1) {
-            board.get(row-1).get(column-1).setValue(value);
-            return true;
-        }
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
         Reg regz = regs.get(reg-1);
+        if(value == 0) {
+            int valold = board.get(row-1).get(column-1).getValue();
+            board.get(row-1).get(column-1).setValue(value);
+            if(valold != 0) {
+                rowz.falten.add(valold);
+                colz.falten.add(valold);
+                regz.falten.add(valold);
+                rowz.usats.set(valold - 1, false);
+                colz.usats.set(valold - 1, false);
+                regz.usats.set(valold - 1, false);
+            }
+            return true;
+        }
         if(!rowz.usats.get(value-1) && !colz.usats.get(value-1) && !regz.usats.get(value-1)) {
             board.get(row-1).get(column-1).setValue(value);
             rowz.usats.set(value-1, true);
@@ -73,7 +82,6 @@ class SudokuBoard extends Board{
             rowz.falten.remove(value);
             colz.falten.remove(value);
             regz.falten.remove(value);
-            System.out.println("Value of cell "+row+" "+column+" has been set to "+getValueCell(row-1, column-1));
             return true;
         }
         else return false;
