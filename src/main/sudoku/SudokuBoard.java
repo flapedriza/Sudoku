@@ -68,7 +68,6 @@ class SudokuBoard extends Board{
 
     public TreeSet<Integer> falten(int x, int y) {
         int reg = region(x, y);
-        System.out.println("row: "+x);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
         TreeSet<Integer> b = new TreeSet<>(cols.get(y-1).falten);
         TreeSet<Integer> c = new TreeSet<>(regs.get(reg-1).falten);
