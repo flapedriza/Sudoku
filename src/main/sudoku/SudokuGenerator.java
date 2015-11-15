@@ -59,8 +59,8 @@ public class SudokuGenerator {
         for(int i = 1; i < max_cells; ++i) removecell(board);
         do {
             removecell(board);
-            done = (true);
-        } while (!done );
+            done = (Solver.evaluate(board) > diff);
+        } while (!done &&);
 
     }
 
@@ -104,6 +104,7 @@ public class SudokuGenerator {
         return it.next();
     }
 
+    //TODO
     private void removecell(SudokuBoard board){}
 
     private void create(SudokuBoard board) {
