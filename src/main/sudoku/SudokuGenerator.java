@@ -46,6 +46,7 @@ public class SudokuGenerator {
     public void generate(SudokuBoard board) {
         create(board,1);
         finished = false;
+        //removeCells(board, (size*size)/2);
         /*int diff;
         Boolean done;
         switch (difficulty) {
@@ -72,12 +73,17 @@ public class SudokuGenerator {
         return new Pair(row+1, col+1);
     }
 
-    private void removecells(SudokuBoard board){
+    public void setDifficulty(Difficulty dif) {
+        this.difficulty = dif;
+    }
+
+    public void removeCells(SudokuBoard board, int number){
         ArrayList<Integer> cells = new ArrayList<>();
         for(int i=1;i<=size*size;++i) cells.add(i);
         Collections.shuffle(cells);
-        while(!cells.isEmpty()) {
-
+        for(int i = 0; i<number; ++i) {
+            Pair rc = rowColFromNum(cells.get(i));
+            board.erase(rc.first, rc.second);
         }
     }
 
@@ -89,7 +95,7 @@ public class SudokuGenerator {
             Iterator<Integer> it = set.iterator();
             while(it.hasNext()) list.add(it.next());
             Collections.shuffle(list);
-            for(int n = 0; n<list.size()&&!finished;++n) {
+            for(int n = 0; n<list.size();++n) {
                 int m = list.get(n);
                 if(board.setValueCell(m, rc.first, rc.second)) {
                     if(rec.equals(size*size)) {
