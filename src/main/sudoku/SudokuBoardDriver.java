@@ -58,25 +58,37 @@ public class SudokuBoardDriver {
     public static void main(String[] args) {
         System.out.println("Creeu el taulell: ");
         createBoard();
-        System.out.println("Opcions:\n1.Assignar valor a cel·la\n2.Consultar possibles valors de la cel·la\n3.Eliminar valor de la cel·la\n4.Consultar valor de la cel·la\n5.Imprimir taulell\n6.Sortir");
+        System.out.println("Opcions:\n1.Llegir sudoku\n2.Assignar valor a cel·la\n3.Consultar possibles valors de la cel·la\n4.Eliminar valor de la cel·la\n5.Consultar valor de la cel·la\n6.Imprimir taulell\n7.Esborrar sudoku\n8.Sortir");
         int option;
         do {
             System.out.print("Opció: ");
             option = reader.nextInt();
             switch (option) {
-                case 1: setValue();
+                case 1: while(true) {
+                    try {
+                        board.read();
+                        break;
+                    } catch(InvalidNumberInCellException ex) {
+                        System.out.println("S'ha assignat un valor il·legal a una cel·la, torneu a introduïr el sudoku");
+                        board.clear();
+                    }
+                }
                     break;
-                case 2: falten();
+                case 2: setValue();
                     break;
-                case 3: erase();
+                case 3: falten();
                     break;
-                case 4: valueCell();
+                case 4: erase();
                     break;
-                case 5: board.print();
+                case 5: valueCell();
                     break;
-                default: option = 6;
+                case 6: board.print();
+                    break;
+                case 7: board.clear();
+                    break;
+                default: option = 8;
                     break;
             }
-        } while(option != 6);
+        } while(option != 8);
     }
 }

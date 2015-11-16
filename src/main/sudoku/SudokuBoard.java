@@ -1,11 +1,16 @@
 package main.sudoku;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 /**
  * Created by Adri on 12/11/15.
  */
+
+class InvalidNumberInCellException extends Exception {
+    public InvalidNumberInCellException() { super(); }
+}
 class SudokuBoard extends Board{
     ArrayList<ArrayList<SudokuCell>> board;
     ArrayList<Row> rows;
@@ -103,6 +108,22 @@ class SudokuBoard extends Board{
         if (value < 10) return (char) ('0'+value);
         else if (value == 16) return '0';
         else return (char) ('A' + (value - 10));
+    }
+
+    public void clear() {
+        for(int i=0;i<size;++i) {
+            for(int j=0;j<size;++j) erase(i+1, j+1);
+        }
+    }
+
+    public void read() throws InvalidNumberInCellException {
+        Scanner reader = new Scanner(System.in);
+        for(int i=0;i<size;++i) {
+            for(int j=0;j<size;++j) {
+                int val = reader.nextInt();
+                if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
+            }
+        }
     }
 
 
