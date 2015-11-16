@@ -13,7 +13,7 @@ class SudokuBoard extends Board{
     ArrayList<Reg> regs;
 
     public SudokuBoard(int size) {
-        super(size); //Clase arreclada per afegir la regio a la cela.
+        super(size);
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
@@ -76,7 +76,7 @@ class SudokuBoard extends Board{
 
     public void print() {
         int sqroot = (int) (Math.sqrt(size));
-        System.out.println();
+        //System.out.println();
 
         for (int i = 0; i < size; ++i) {
             if (i%sqroot == 0 && i != 0) {

@@ -35,6 +35,7 @@ public class SudokuBoardDriver {
         Iterator<Integer> it = set.iterator();
         System.out.print("La cel·la pot assolir els següents valors: ");
         while (it.hasNext()) System.out.print(" "+it.next());
+        System.out.println();
     }
 
     private static void erase() {
@@ -60,6 +61,7 @@ public class SudokuBoardDriver {
         System.out.println("Opcions:\n1.Assignar valor a cel·la\n2.Consultar possibles valors de la cel·la\n3.Eliminar valor de la cel·la\n4.Consultar valor de la cel·la\n5.Imprimir taulell\n6.Sortir");
         int option;
         do {
+            System.out.print("Opció: ");
             option = reader.nextInt();
             switch (option) {
                 case 1: setValue();
