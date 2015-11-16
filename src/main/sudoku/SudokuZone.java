@@ -20,6 +20,16 @@ public abstract class SudokuZone {
         for(int i = 0; i<size; ++i) falten.add(i+1);
     }
 
+    public void remove(int value) {
+        usats.set(value-1,false);
+        falten.add(value);
+    }
+
+    public void add(int value) {
+        usats.set(value-1, true);
+        falten.remove(value);
+    }
+
 }
 class Row extends SudokuZone {
     public Row(int size, int valor) {

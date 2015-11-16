@@ -76,7 +76,14 @@ public class SudokuGenerator {
     }
 
     //TODO
-    private void removecell(SudokuBoard board){}
+    private void removecells(SudokuBoard board){
+        ArrayList<Integer> cells = new ArrayList<>();
+        for(int i=1;i<=size*size;++i) cells.add(i);
+        Collections.shuffle(cells);
+        while(!cells.isEmpty()) {
+
+        }
+    }
 
     private void create(SudokuBoard board, Integer rec) {
         if(!finished) {
@@ -93,7 +100,7 @@ public class SudokuGenerator {
                     }
                     else create(board, rec+1);
                 }
-                if(!finished)board.setValueCell(0, rc.first, rc.second);
+                if(!finished)board.erase( rc.first, rc.second);
             }
         }
     }

@@ -30,29 +30,6 @@ class SudokuBoard extends Board{
                 board.get(i).add(new SudokuCell(rows.get(i),cols.get(j),regs.get(reg-1)));
             }
         }
-        /*double tam = Math.sqrt(size);
-        int reg = 1;
-        int contFil = 0;
-        int maxReg = 0;
-        int contSeg = 0; //tamany de una fila de regions
-        for (int i =0;i < size;++i) {
-            if (contSeg >= size*tam) {
-                contSeg = 0;
-                reg = maxReg+1;
-            }
-            if (contSeg < size* tam) reg -= tam-1;
-            board.add(new ArrayList<SudokuCell>(size));
-            for (int j = 0; j < size; ++j) {
-                ++contFil;
-                ++contSeg;
-                if (contFil >= tam) {
-                    ++reg;
-                    contFil = 0;
-                    if (reg > maxReg) maxReg = reg;
-                }
-                board.get(i).add(new SudokuCell(i,j,reg));
-            }
-        }*/
     }
 
     @Override
@@ -61,27 +38,12 @@ class SudokuBoard extends Board{
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
         Reg regz = regs.get(reg-1);
-        if(value == 0) {
-            int valold = board.get(row-1).get(column-1).getValue();
-            board.get(row-1).get(column-1).setValue(value);
-            if(valold != 0) {
-                rowz.falten.add(valold);
-                colz.falten.add(valold);
-                regz.falten.add(valold);
-                rowz.usats.set(valold - 1, false);
-                colz.usats.set(valold - 1, false);
-                regz.usats.set(valold - 1, false);
-            }
-            return true;
-        }
+
         if(!rowz.usats.get(value-1) && !colz.usats.get(value-1) && !regz.usats.get(value-1)) {
             board.get(row-1).get(column-1).setValue(value);
-            rowz.usats.set(value-1, true);
-            colz.usats.set(value-1, true);
-            regz.usats.set(value-1, true);
-            rowz.falten.remove(value);
-            colz.falten.remove(value);
-            regz.falten.remove(value);
+            rowz.add(value);
+            colz.add(value);
+            regz.add(value);
             return true;
         }
         else return false;
@@ -97,21 +59,20 @@ class SudokuBoard extends Board{
         return a;
 
     }
-    public void erase (int row,int col ){
-        int value = board.get(row).get(col).getValue();
-        int reg = region(row, col);
-        rows.get(row-1).usats.set(value-1,false);
-        rows.get(row-1).falten.add(value);
-        cols.get(col-1).usats.set(value- 1, false);//Col
-        cols.get(col-1).falten.add(value);
-        regs.get(reg-1).usats.set(value - 1, false);//Reg
-        regs.get(reg-1).falten.add(value);
-        board.get(row).get(col).visible=false;
+    public void erase (int row,int column ){
+        int reg = region(row, column);
+        Row rowz = rows.get(row-1);
+        Col colz = cols.get(column-1);
+        Reg regz = regs.get(reg-1);
+            int valold = board.get(row-1).get(column-1).getValue();
+            board.get(row-1).get(column-1).setValue(0);
+            if(valold != 0) {
+                rowz.remove(valold);
+                colz.remove(valold);
+                regz.remove(valold);
+            }
     }
 
-    /*public int getValueCell(int x, int y) {
-        return board.get(x-1).get(y-1).getValue();
-    }*/
 
     public void print() {
         int bar = (int) (Math.sqrt(size));
