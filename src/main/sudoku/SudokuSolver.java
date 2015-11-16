@@ -33,26 +33,34 @@ public class SudokuSolver {
         //ArrayList<Integer> order = order_cells();
 
         ArrayList<Integer> order = new ArrayList<>();
-        for (int i = 0; i < size*size; ++i)
+        for (int i = 1; i <= size*size; ++i)
             order.add(i);
+
+        ArrayList<Integer> to_remove = new ArrayList<>();
 
         boolean progress = false;
 
         for (int coordinate : order) {
             int i = (coordinate-1)/size + 1;
             int j = coordinate%size;
+            if (i == 0) i = 9;
+            if (j == 0) j = 9;
+
+            //System.out.println(i+" "+j);
 
             TreeSet<Integer> possibles = prune(i-1,j-1,board.falten(i,j));
 
             if (possibles.size() == 1) {
                 board.setValueCell(possibles.first(), i, j);
-                order.remove(coordinate);
+                to_remove.add(coordinate);
                 progress = true;
             }
         }
 
+        //for (Integer cell : to_remove) order.remove(cell);
+
         /*if (! progress) throw "Multiples solucions";
-        else*/ if (! order.isEmpty()) solve();
+        else*/// if (! order.isEmpty()) solve();
     }
 
     private TreeSet<Integer> prune(int row, int column, TreeSet<Integer> resten)
@@ -101,7 +109,6 @@ public class SudokuSolver {
             int lastColumn = firstColumn + sqroot - 1;
 
             ArrayList<TreeSet<Integer>> lines = new ArrayList<>();
-
             for (int row = firstRow; row <= lastRow; ++row) {
                 ArrayList<TreeSet<Integer>> cells = new ArrayList<>();
                 for (int column = firstColumn; column <= lastColumn; ++column)
@@ -110,7 +117,7 @@ public class SudokuSolver {
             }
             exclude(lines);
             for (int row = firstRow; row <= lastRow; ++row)
-                for (int value : lines.get(row))reservedRows.get(row).set(value-1,region);
+                for (int value : lines.get(row%sqroot)) reservedRows.get(row).set(value-1,region);
 
             lines.clear();
             for (int column = firstColumn; column <= lastColumn; ++column) {
@@ -121,7 +128,7 @@ public class SudokuSolver {
             }
             exclude(lines);
             for (int column = firstColumn; column <= lastColumn; ++column)
-                for (int value : lines.get(column))reservedRows.get(column).set(value-1,region);
+                for (int value : lines.get(column%sqroot)) reservedColumns.get(column).set(value-1,region);
         }
     }
 
