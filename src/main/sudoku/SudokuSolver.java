@@ -139,14 +139,16 @@ public class SudokuSolver {
     private void exclude(ArrayList<TreeSet<Integer>> lines)
     {
         for (int i = 0; i < sqroot-1; ++i) {
-            Iterator<Integer> restant = lines.get(i).iterator();
-            while (restant.hasNext())
+            Iterator<Integer> restants = lines.get(i).iterator();
+            while (restants.hasNext()) {
+                int value = restants.next();
                 for (int j = i + 1; j < sqroot; ++j)
-                    if (lines.get(j).remove(restant.next())) {
+                    if (lines.get(j).remove(value)) {
                         for (int l = j + 1; l < sqroot; ++l)
-                            lines.get(l).remove(restant.next());
-                        lines.get(i).remove(restant.next());
+                            lines.get(l).remove(value);
+                        restants.remove();
                     }
+            }
         }
     }
 
