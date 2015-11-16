@@ -87,7 +87,7 @@ public class SudokuGenerator {
         }
     }
 
-    private void create(SudokuBoard board, Integer rec) {
+    public void create(SudokuBoard board, Integer rec) {
         if(!finished) {
             Pair rc = rowColFromNum(rec);
             ArrayList<Integer> list = new ArrayList<>();
