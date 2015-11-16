@@ -73,6 +73,7 @@ public class SudokuBoardDriver {
                         board.clear();
                     }
                 }
+                    break;
                 case 2: setValue();
                     break;
                 case 3: falten();
@@ -83,9 +84,11 @@ public class SudokuBoardDriver {
                     break;
                 case 6: board.print();
                     break;
-                default: option = 7;
+                case 7: board.clear();
+                    break;
+                default: option = 8;
                     break;
             }
-        } while(option != 6);
+        } while(option != 8);
     }
 }
