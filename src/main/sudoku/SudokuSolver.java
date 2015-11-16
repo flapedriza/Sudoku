@@ -6,6 +6,7 @@ import java.util.TreeSet;
 /**
  * Created by victor on 16/11/2015.
  */
+
 public class SudokuSolver {
     private SudokuBoard board;
     private int size, sqroot;
@@ -28,7 +29,11 @@ public class SudokuSolver {
     {
         process();
 
-        ArrayList<Integer> order = order_cells();
+        //ArrayList<Integer> order = order_cells();
+
+        ArrayList<Integer> order = new ArrayList<>();
+        for (int i = 0; i < size*size; ++i)
+            order.add(i);
 
         boolean progress = false;
 
@@ -40,12 +45,13 @@ public class SudokuSolver {
 
             if (possibles.size() == 1) {
                 board.setValueCell(possibles.first(), i, j);
+                order.remove(coordinate);
                 progress = true;
             }
         }
 
-        if (! progress) throw "Multiples solucions";
-        else if (! order.isEmpty()) reSolve();
+        /*if (! progress) throw "Multiples solucions";
+        else*/ if (! order.isEmpty()) solve();
     }
 
     private TreeSet<Integer> prune(int row, int column, TreeSet<Integer> resten)
@@ -71,7 +77,7 @@ public class SudokuSolver {
     private void initialize()
     {
         this.size = board.getSudokuSize();
-        this.sqroot = sqrt(size);
+        this.sqroot = (int) Math.sqrt(size + 0.0);
 
         this.reservedColumns = new ArrayList<>();
         this.reservedRows = new ArrayList<>();
@@ -141,11 +147,11 @@ public class SudokuSolver {
                     }
     }
 
-    public void reSolve()
+    /*public void reSolve()
     {
         actualize();
         solve();
     }
-
+    */
 
 }
