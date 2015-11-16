@@ -1,10 +1,7 @@
 package main.sudoku;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by Francesc on 7/11/2015.
@@ -88,9 +85,11 @@ public class SudokuGenerator {
         if(!finished) {
             Pair rc = rowColFromNum(rec);
             ArrayList<Integer> list = new ArrayList<>();
-            for(int k = 1; k<size+1;++k) list.add(k);
+            TreeSet<Integer> set = board.falten(rc.first, rc.second);
+            Iterator<Integer> it = set.iterator();
+            while(it.hasNext()) list.add(it.next());
             Collections.shuffle(list);
-            for(int n = 0; n<size&&!finished;++n) {
+            for(int n = 0; n<list.size()&&!finished;++n) {
                 int m = list.get(n);
                 if(board.setValueCell(m, rc.first, rc.second)) {
                     if(rec.equals(size*size)) {
