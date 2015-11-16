@@ -75,7 +75,6 @@ public class SudokuGenerator {
         return new Pair(row+1, col+1);
     }
 
-    //TODO
     private void removecells(SudokuBoard board){
         ArrayList<Integer> cells = new ArrayList<>();
         for(int i=1;i<=size*size;++i) cells.add(i);

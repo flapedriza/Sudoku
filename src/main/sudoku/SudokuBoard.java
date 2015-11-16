@@ -75,6 +75,28 @@ class SudokuBoard extends Board{
 
 
     public void print() {
+        int sqroot = (int) (Math.sqrt(size));
+        System.out.println();
+
+        for (int i = 0; i < size; ++i) {
+            if (i%sqroot == 0 && i != 0) {
+                for (int j = 0; j < size; ++j) {
+                    if (j % sqroot == 0 && j != 0)
+                        System.out.print(" +");
+                    System.out.print(" -");
+                }
+                System.out.println();
+            }
+            for (int j = 0; j < size; ++j) {
+                if (j%sqroot == 0 && j != 0)
+                    System.out.print(" |");
+                System.out.print(" "+printableCell(i,j));
+            }
+            System.out.println();
+        }
+        System.out.println();
+
+/*
         int bar = (int) (Math.sqrt(size));
         for(int i=0;i<size;++i) {
             System.out.print(getValueCell(i,0));
@@ -85,8 +107,16 @@ class SudokuBoard extends Board{
             System.out.println();
             if((i+1)%bar == 0 && i!= size-1) System.out.println("- - - + - - - + - - -");
 
-        }
+        }       */
     }
+
+    public char printableCell(int r, int c) {
+        int value = getValueCell(r,c) - 1;
+        if (value < 10) return (char) ('0'+value);
+        else return (char) ('A' + (value - 10));
+    }
+
+
 
 
 
