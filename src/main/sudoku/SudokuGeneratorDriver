@@ -1,0 +1,62 @@
+package main.sudoku;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.TreeSet;
+
+/**
+ * Created by Adri on 16/11/15.
+ */
+public class SudokuGeneratorDriver {
+    static SudokuBoard board;
+    static Scanner reader = new Scanner(System.in);
+
+    private static void createBoard() {
+        System.out.println("Tamany: ");
+        int size = reader.nextInt();
+        board = new SudokuBoard(size);
+    }
+
+    private static void generate() {
+    }
+
+    private static void setDifficulty
+
+    {
+    }
+
+    private static void removeCells() {
+    }
+
+    private static void create() {
+    }
+
+    public static void main(String[] args) {
+        System.out.println("Creeu el taulell: ");
+        createBoard();
+        System.out.println("Opcions:\n1.Generar Taulell\n2.Seleccionar la dificultat\n3.esborrar caselles\n4.Crear el sudoku\n5.Imprimir taulell\n6.Sortir");
+        int option;
+        do {
+            System.out.print("Opció: ");
+            option = reader.nextInt();
+            switch (option) {
+                case 1:
+                    generate();
+                    break;
+                case 2:
+                    setDifficulty();
+                    break;
+                case 3:
+                    removeCells();
+                    break;
+                case 4:
+                    create();
+                    break;
+                default:
+                    option = 5;
+                    break;
+            }
+        } while (option != 5);
+    }
+}
+
+
