@@ -1,7 +1,6 @@
 package main.sudoku;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeSet;
 
 /**
@@ -27,6 +26,8 @@ public class SudokuSolver {
 
     private void solve()
     {
+        process();
+
         ArrayList<Integer> order = order_cells();
 
         boolean progress = false;
@@ -34,14 +35,29 @@ public class SudokuSolver {
         for (int coordinate : order) {
             int i = (coordinate-1)/size + 1;
             int j = coordinate%size;
-            if (board.falten(i,j).size() == 1) {
-                board.setValueCell(board.falten(i, j).first(), i, j);
+
+            TreeSet<Integer> possibles = prune(i-1,j-1,board.falten(i,j).size());
+
+            if (possibles.size() == 1) {
+                board.setValueCell(possibles.first(), i, j);
                 progress = true;
             }
         }
 
         if (! progress) throw "Multiples solucions";
         else if (! order.isEmpty()) reSolve();
+    }
+
+    private TreeSet<Integer> prune(int row, int column, TreeSet<Integer> resten)
+    {
+        int region = (row/sqroot)*sqroot + (column%sqroot)*sqroot;
+
+        TreeSet<Integer> pruned = new TreeSet<>();
+        for (int value : resten) {
+            if (reservedRows.get(row).get(value - 1) == 0
+                    && reservedColumns.get(column).get(value - 1) == 0) pruned.add(value);
+            else if ()
+        }
     }
 
     private void initialize()
