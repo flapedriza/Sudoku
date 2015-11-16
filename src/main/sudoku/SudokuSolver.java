@@ -36,7 +36,7 @@ public class SudokuSolver {
             int i = (coordinate-1)/size + 1;
             int j = coordinate%size;
 
-            TreeSet<Integer> possibles = prune(i-1,j-1,board.falten(i,j).size());
+            TreeSet<Integer> possibles = prune(i-1,j-1,board.falten(i,j));
 
             if (possibles.size() == 1) {
                 board.setValueCell(possibles.first(), i, j);
@@ -54,10 +54,18 @@ public class SudokuSolver {
 
         TreeSet<Integer> pruned = new TreeSet<>();
         for (int value : resten) {
-            if (reservedRows.get(row).get(value - 1) == 0
-                    && reservedColumns.get(column).get(value - 1) == 0) pruned.add(value);
-            else if ()
+            if (reservedRows.get(row).get(value-1) == region
+                    && reservedColumns.get(column).get(value-1) == region) {
+                pruned.clear();
+                pruned.add(value);
+                return pruned;
+            }
+            else if (reservedRows.get(row).get(value-1) == 0
+                    && reservedColumns.get(column).get(value-1) == 0) pruned.add(value);
+            else if (reservedRows.get(row).get(value-1) == region
+                    || reservedColumns.get(column).get(value-1) == region) pruned.add(value);
         }
+        return pruned;
     }
 
     private void initialize()
