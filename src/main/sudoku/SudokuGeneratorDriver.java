@@ -1,33 +1,53 @@
 package main.sudoku;
-import java.util.Iterator;
+
 import java.util.Scanner;
-import java.util.TreeSet;
 
 /**
  * Created by Adri on 16/11/15.
  */
 public class SudokuGeneratorDriver {
     static SudokuBoard board;
+    static SudokuGenerator gen;
     static Scanner reader = new Scanner(System.in);
 
     private static void createBoard() {
-        System.out.println("Tamany: ");
+        System.out.print("Tamany: ");
         int size = reader.nextInt();
+        System.out.print("Dificultat(Facil, Normal, Dificil: ");
+        String dif = reader.next();
+        SudokuGenerator.Difficulty difficulty;
+        switch (dif) {
+            case "Facil" : difficulty = SudokuGenerator.Difficulty.EASY;
+                break;
+            case "Normal": difficulty = SudokuGenerator.Difficulty.NORMAL;
+                break;
+            case "Dificil": difficulty = SudokuGenerator.Difficulty.HARD;
+                break;
+            default: difficulty = SudokuGenerator.Difficulty.EASY;
+                break;
+        }
         board = new SudokuBoard(size);
+        gen = new SudokuGenerator(difficulty, size);
     }
 
     private static void generate() {
+        gen.generate(board);
     }
 
-    private static void setDifficulty
-
+    private static void setDifficulty()
     {
+        //TODO
     }
 
     private static void removeCells() {
+        System.out.println("Quantes caselles cal esborrar?");
+        int val = reader.nextInt();
+        gen.removeCells(board, val);
+
     }
 
     private static void create() {
+        gen.create(board, 1);
     }
 
     public static void main(String[] args) {
@@ -51,11 +71,13 @@ public class SudokuGeneratorDriver {
                 case 4:
                     create();
                     break;
+                case 5: board.print();
+                    break;
                 default:
-                    option = 5;
+                    option = 6;
                     break;
             }
-        } while (option != 5);
+        } while (option != 6);
     }
 }
 
