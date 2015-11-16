@@ -122,4 +122,7 @@ class SudokuBoard extends Board{
         return 1 + (column-1)/tam + ((row-1)/tam)*tam;
     }
 
+
+    public int getSudokuSize() {return regs.size();}
+
 }
