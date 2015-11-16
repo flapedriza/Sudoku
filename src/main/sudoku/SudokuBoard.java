@@ -95,24 +95,13 @@ class SudokuBoard extends Board{
             System.out.println();
         }
         System.out.println();
-
-/*
-        int bar = (int) (Math.sqrt(size));
-        for(int i=0;i<size;++i) {
-            System.out.print(getValueCell(i,0));
-            for(int j=1;j<size;++j) {
-                System.out.print(" "+getValueCell(i,j));
-                if((j+1)%bar == 0 && j != size-1) System.out.print(" |");
-            }
-            System.out.println();
-            if((i+1)%bar == 0 && i!= size-1) System.out.println("- - - + - - - + - - -");
-
-        }       */
     }
 
     public char printableCell(int r, int c) {
-        int value = getValueCell(r,c) - 1;
+        int value = getValueCell(r,c);
+        if (value == 0) return '·';
         if (value < 10) return (char) ('0'+value);
+        else if (value == 16) return '0';
         else return (char) ('A' + (value - 10));
     }
 
