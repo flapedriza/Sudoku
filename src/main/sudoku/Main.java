@@ -10,7 +10,8 @@ public class Main {
         board.print();
         gen.removeCells(board, 40);
         board.print();
-        gen.generate(board);
+        SudokuSolver solver = new SudokuSolver(board);
+        //gen.generate(board);
         board.print();
     }
 }
