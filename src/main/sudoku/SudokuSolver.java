@@ -1,6 +1,7 @@
 package main.sudoku;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
@@ -137,14 +138,16 @@ public class SudokuSolver {
     // per a tots els sets (menys l'ultim) busca coincidencies entre els seguents i les elimina als dos sets.
     private void exclude(ArrayList<TreeSet<Integer>> lines)
     {
-        for (int i = 0; i < sqroot-1; ++i)
-            for (int restant : lines.get(i))
-                for (int j = i+1; j < sqroot; ++j)
-                    if(lines.get(j).remove(restant)) {
-                        for (int l = j+1; l < sqroot; ++l)
-                            lines.get(l).remove(restant);
-                        lines.get(i).remove(restant);
+        for (int i = 0; i < sqroot-1; ++i) {
+            Iterator<Integer> restant = lines.get(i).iterator();
+            while (restant.hasNext())
+                for (int j = i + 1; j < sqroot; ++j)
+                    if (lines.get(j).remove(restant.next())) {
+                        for (int l = j + 1; l < sqroot; ++l)
+                            lines.get(l).remove(restant.next());
+                        lines.get(i).remove(restant.next());
                     }
+        }
     }
 
     /*public void reSolve()
