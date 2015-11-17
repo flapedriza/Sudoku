@@ -25,7 +25,7 @@ public class SudokuSolver {
     public SudokuBoard solve() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
-        //sort(posicions);
+        sort(posicions);      // Quan activo el sort se'm sobrescriuen les posicions inicials...
 
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
