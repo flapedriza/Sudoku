@@ -22,19 +22,20 @@ public class SudokuSolver {
         this.board = board;
     }
 
-    public void solve() {
+    public SudokuBoard solve() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
         sort(posicions);
 
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
+        return solucio;
     }
 
     public boolean solucio_unica() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
-        sort(posicions);
+        //sort(posicions);
 
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
