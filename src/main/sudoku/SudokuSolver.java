@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 public class SudokuSolver {
     private SudokuBoard board;
+    private SudokuBoard solucio;
     private int size;
 
     public static void solve(SudokuBoard board) {
@@ -19,10 +20,9 @@ public class SudokuSolver {
     public SudokuSolver(SudokuBoard board)
     {
         this.board = board;
-        solve();
     }
 
-    private void solve() {
+    public void solve() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
         sort(posicions);
@@ -31,9 +31,7 @@ public class SudokuSolver {
         if (!b) System.out.println("Sudoku sense solució");
     }
 
-    private Boolean solucio_unica() {
-
-
+    public void Boolean solucio_unica() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
         sort(posicions);
@@ -41,6 +39,8 @@ public class SudokuSolver {
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
         else {
+            SudokuBoard solucio1;
+            solucio1 = copia(solucio);
             int aux = posicions.get(size);
             posicions.set(size,posicions.get(0));
             posicions.set(0,aux);
@@ -69,9 +69,10 @@ public class SudokuSolver {
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
         if (i == posicions.size()) {
-
+            solucio = solucio.copia(board);
             return true;
         }
+
         int fila = fila(posicions.get(i));
         int columna = columna(posicions.get(i));
         TreeSet<Integer> values = board.falten(fila,columna);

@@ -37,7 +37,7 @@ class SudokuBoard extends Board{
         }
     }
 
-    public SudokuBoard copy(SudokuBoard board) {
+    public SudokuBoard copia(SudokuBoard board) {
         int size = board.getSudokuSize();
         SudokuBoard copy = new SudokuBoard(size);
         for (int fila = 1; fila < size; ++fila)
