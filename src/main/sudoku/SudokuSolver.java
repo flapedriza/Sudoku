@@ -25,7 +25,7 @@ public class SudokuSolver {
     public SudokuBoard solve() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
-        sort(posicions);
+        //sort(posicions);
 
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
@@ -35,7 +35,7 @@ public class SudokuSolver {
     public boolean solucio_unica() {
         ArrayList<Integer> posicions = new ArrayList<>();
         for (int i = 1; i <= size*size; ++i) posicions.add(i);
-        //sort(posicions);
+        sort(posicions);
 
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
@@ -54,13 +54,14 @@ public class SudokuSolver {
     {
         for (int i = 1; i < posicions.size();++i) {
             int isize = solucio.falten(fila(i),columna(i)).size();
-
             int j = i-1;
             int jsize = solucio.falten(fila(j),columna(j)).size();
 
-            while (j > 0 && posicions.get(j) > posicions.get(i)) {
-
+            while (j >= 0 && jsize > isize) {
+                --j;
+                if (j >= 0) jsize = solucio.falten(fila(j),columna(j)).size();
             }
+
             int aux = posicions.get(j+1);
             posicions.set(j+1,posicions.get(i));
             posicions.set(i,aux);
