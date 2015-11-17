@@ -42,7 +42,7 @@ class SudokuBoard extends Board{
         SudokuBoard copy = new SudokuBoard(size);
         for (int fila = 1; fila <= size; ++fila)
             for (int columna = 1; columna <= size; ++columna)
-                copy.setValueCell(this.getValueCell(fila,columna),fila,columna);
+                copy.setValueCell(this.getValueCell(fila-1,columna-1),fila,columna);
         return copy;
     }
 
