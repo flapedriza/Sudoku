@@ -37,7 +37,7 @@ class SudokuBoard extends Board{
         }
     }
 
-    public SudokuBoard clone() {
+    public SudokuBoard copia() {
         int size = this.getSudokuSize();
         SudokuBoard copy = new SudokuBoard(size);
         for (int fila = 1; fila <= size; ++fila)

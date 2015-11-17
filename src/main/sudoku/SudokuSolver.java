@@ -20,6 +20,7 @@ public class SudokuSolver {
     public SudokuSolver(SudokuBoard board)
     {
         this.board = board;
+        size = board.getSudokuSize();
     }
 
     public SudokuBoard solve() {
@@ -40,7 +41,7 @@ public class SudokuSolver {
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
         else {
-            SudokuBoard solucio1 = solucio.clone();
+            SudokuBoard solucio1 = solucio.copia();
             int aux = posicions.get(size);
             posicions.set(size,posicions.get(0));
             posicions.set(0,aux);
@@ -69,13 +70,18 @@ public class SudokuSolver {
 
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
+        //System.out.println("hello " + i + " "+posicions.size());
+
         if (i == posicions.size()) {
-            solucio = board.clone();
+            solucio = board.copia();
             return true;
         }
 
         int fila = fila(posicions.get(i));
         int columna = columna(posicions.get(i));
+
+        //System.out.println(fila+" "+columna);
+
         TreeSet<Integer> values = board.falten(fila,columna);
         Iterator<Integer> value = values.iterator();
         while (value.hasNext()) {
