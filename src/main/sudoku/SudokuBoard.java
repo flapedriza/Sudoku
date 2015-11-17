@@ -37,6 +37,15 @@ class SudokuBoard extends Board{
         }
     }
 
+    public SudokuBoard copy(SudokuBoard board) {
+        int size = board.getSudokuSize();
+        SudokuBoard copy = new SudokuBoard(size);
+        for (int fila = 1; fila < size; ++fila)
+            for (int columna = 1; columna < size; ++columna)
+                setValueCell(board.getValueCell(fila,columna),fila,columna);
+        return copy;
+    }
+
     @Override
     public boolean setValueCell(int value, int row, int column) {
         int reg = region(row, column);
@@ -145,5 +154,4 @@ class SudokuBoard extends Board{
 
 
     public int getSudokuSize() {return regs.size();}
-
 }

@@ -68,6 +68,10 @@ public class SudokuSolver {
 
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
+        if (i == posicions.size()) {
+
+            return true;
+        }
         int fila = fila(posicions.get(i));
         int columna = columna(posicions.get(i));
         TreeSet<Integer> values = board.falten(fila,columna);
@@ -75,8 +79,9 @@ public class SudokuSolver {
         while (value.hasNext()) {
             int actual = value.next();
             board.setValueCell(actual,fila,columna);
-            if (solve_BT(posicions,i+1)) return true;
-            else board.erase(fila,columna);
+            boolean b = solve_BT(posicions,i+1);
+            board.erase(fila,columna);
+            return b;
         }
         return false;
     }
