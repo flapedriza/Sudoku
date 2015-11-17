@@ -8,8 +8,11 @@ public class Main {
         SudokuGenerator gen = new SudokuGenerator(SudokuGenerator.Difficulty.EASY,9);
         gen.generate(board);
         board.print();
-        gen.removeCells(board, 10);
+        gen.removeCells(board, 81);
+        SudokuBoard board2 = board.copia();
+        board2.setValueCell(1,1,1);
         board.print();
+        board2.print();
         //SudokuSolver.solve(board);
         SudokuSolver solver = new SudokuSolver(board);
         solver.solve().print();

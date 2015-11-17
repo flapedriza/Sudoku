@@ -9,7 +9,6 @@ import java.util.TreeSet;
  */
 
 public class SudokuSolver {
-    private SudokuBoard board;
     private SudokuBoard solucio;
     private int size;
 
@@ -17,10 +16,10 @@ public class SudokuSolver {
         new SudokuSolver(board);
     }
 
-    public SudokuSolver(SudokuBoard board)
+    public SudokuSolver(SudokuBoard inicial)
     {
-        this.board = board;
-        size = board.getSudokuSize();
+        this.solucio = inicial.copia();
+        size = inicial.getSudokuSize();
     }
 
     public SudokuBoard solve() {
@@ -54,10 +53,10 @@ public class SudokuSolver {
     private void sort(ArrayList<Integer> posicions)
     {
         for (int i = 1; i < posicions.size();++i) {
-            int isize = board.falten(fila(i),columna(i)).size();
+            int isize = solucio.falten(fila(i),columna(i)).size();
 
             int j = i-1;
-            int jsize = board.falten(fila(j),columna(j)).size();
+            int jsize = solucio.falten(fila(j),columna(j)).size();
 
             while (j > 0 && posicions.get(j) > posicions.get(i)) {
 
@@ -70,26 +69,20 @@ public class SudokuSolver {
 
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
-        if (i == posicions.size()) {
-            solucio = board.copia();
-            return true;
-        }
+        if (i == posicions.size()) return true;
 
         int fila = fila(posicions.get(i));
         int columna = columna(posicions.get(i));
 
-        TreeSet<Integer> values = board.falten(fila,columna);
+        TreeSet<Integer> values = solucio.falten(fila,columna);
         if (values.size() == 0) return solve_BT(posicions,i+1);
 
-
         Iterator<Integer> value = values.iterator();
-
         while (value.hasNext()) {
             int actual = value.next();
-            board.setValueCell(actual,fila,columna);
-            boolean b = solve_BT(posicions,i+1);
-            board.erase(fila,columna);
-            if (b) return true;
+            solucio.setValueCell(actual,fila,columna);
+            if(solve_BT(posicions,i+1)) return true;
+            solucio.erase(fila,columna);
         }
         return false;
     }
