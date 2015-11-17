@@ -70,8 +70,6 @@ public class SudokuSolver {
 
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
-        //System.out.println("hello " + i + " "+posicions.size());
-
         if (i == posicions.size()) {
             solucio = board.copia();
             return true;
@@ -80,16 +78,18 @@ public class SudokuSolver {
         int fila = fila(posicions.get(i));
         int columna = columna(posicions.get(i));
 
-        //System.out.println(fila+" "+columna);
-
         TreeSet<Integer> values = board.falten(fila,columna);
+        if (values.size() == 0) return solve_BT(posicions,i+1);
+
+
         Iterator<Integer> value = values.iterator();
+
         while (value.hasNext()) {
             int actual = value.next();
             board.setValueCell(actual,fila,columna);
             boolean b = solve_BT(posicions,i+1);
             board.erase(fila,columna);
-            return b;
+            if (b) return true;
         }
         return false;
     }
