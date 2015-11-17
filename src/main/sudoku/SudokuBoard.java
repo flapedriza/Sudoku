@@ -46,6 +46,16 @@ class SudokuBoard extends Board{
         return copy;
     }
 
+    public static boolean equals(SudokuBoard b1, SudokuBoard b2) {
+        int size = b1.getSudokuSize();
+        if (size != b2.getSudokuSize()) return false;
+
+        for (int fila = 1; fila <= size; ++fila)
+            for (int columna = 1; columna <= size; ++columna)
+                if (b1.getValueCell(fila,columna) != b2.getValueCell(fila,columna)) return false;
+        return true;
+    }
+
     @Override
     public boolean setValueCell(int value, int row, int column) {
         int reg = region(row, column);

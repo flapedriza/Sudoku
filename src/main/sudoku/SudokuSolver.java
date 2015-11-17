@@ -39,13 +39,12 @@ public class SudokuSolver {
         Boolean b = solve_BT(posicions,0);
         if (!b) System.out.println("Sudoku sense solució");
         else {
-            SudokuBoard solucio1;
-            solucio1 = copia(solucio);
+            SudokuBoard solucio1 = solucio.clone();
             int aux = posicions.get(size);
             posicions.set(size,posicions.get(0));
             posicions.set(0,aux);
             b = solve_BT(posicions,0);
-
+            if (solucio)
         }
     }
 
@@ -69,7 +68,7 @@ public class SudokuSolver {
     private Boolean solve_BT(ArrayList<Integer> posicions, int i)
     {
         if (i == posicions.size()) {
-            solucio = solucio.copia(board);
+            solucio = board.clone();
             return true;
         }
 
