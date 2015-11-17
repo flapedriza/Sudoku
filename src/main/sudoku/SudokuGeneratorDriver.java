@@ -3,7 +3,7 @@ package main.sudoku;
 import java.util.Scanner;
 
 /**
- * Created by Adri on 16/11/15.
+ * Created by Adri on 15/11/15.
  */
 public class SudokuGeneratorDriver {
     static SudokuBoard board;

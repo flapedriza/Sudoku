@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 /**
- * Created by Francesc on 16/11/2015.
+ * Created by Francesc on 15/11/2015.
  */
 public class SudokuBoardDriver {
     static SudokuBoard board;
