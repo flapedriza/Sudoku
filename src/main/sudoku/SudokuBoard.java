@@ -48,6 +48,7 @@ class SudokuBoard extends Board{
 
     @Override
     public boolean setValueCell(int value, int row, int column) {
+        if(value <= 0 || value >size) return false;
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
