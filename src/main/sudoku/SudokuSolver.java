@@ -1,4 +1,4 @@
-package main.sudoku;
+/*package main.sudoku;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 /**
  * Created by victor on 16/11/2015.
- */
+
 
 public class SudokuSolver {
     private SudokuBoard board;
@@ -95,4 +95,4 @@ public class SudokuSolver {
         if (columna == 0) columna = size;
         return columna;
     }
-}
+}*/
