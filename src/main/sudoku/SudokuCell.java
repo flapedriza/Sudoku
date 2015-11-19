@@ -13,7 +13,6 @@ public class SudokuCell extends Cell {
         col = column;
         row = fila;
         value = 0;
-        for (int i = 0; i < annotations.length; i++) annotations[i] = false;
     }
 
     public Reg getRegZone() {

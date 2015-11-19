@@ -11,14 +11,15 @@ import java.util.TreeSet;
 class InvalidNumberInCellException extends Exception {
     public InvalidNumberInCellException() { super(); }
 }
-class SudokuBoard extends Board{
+class SudokuBoard {
+    int size;
     ArrayList<ArrayList<SudokuCell>> board;
     ArrayList<Row> rows;
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
 
     public SudokuBoard(int size) {
-        super(size);
+        this.size = size;
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
@@ -42,13 +43,12 @@ class SudokuBoard extends Board{
         SudokuBoard copy = new SudokuBoard(size);
         for (int fila = 1; fila <= size; ++fila)
             for (int columna = 1; columna <= size; ++columna)
-                copy.setValueCell(this.getValueCell(fila-1,columna-1),fila,columna);
+                    copy.setValueCell(this.getValueCell(fila-1,columna-1),fila,columna);
         return copy;
     }
 
     public boolean iguals(SudokuBoard b2) {
-        int size = this.getSudokuSize();
-        if (size != b2.getSudokuSize()) return false;
+        if (this.size != b2.getSudokuSize()) return false;
 
         for (int fila = 1; fila <= size; ++fila)
             for (int columna = 1; columna <= size; ++columna)
@@ -56,9 +56,10 @@ class SudokuBoard extends Board{
         return true;
     }
 
-    @Override
-    public boolean setValueCell(int value, int row, int column) {
-        if(value <= 0 || value >size) return false;
+    public int setValueCell(int value, int row, int column) {
+        if(value < 0 || value > size || row <= 0 || row > size
+                || column <= 0 || column > size) return 2;
+        if(!falten(row, column).contains(value)) return 0;
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
@@ -69,9 +70,9 @@ class SudokuBoard extends Board{
             rowz.add(value);
             colz.add(value);
             regz.add(value);
-            return true;
+            return 1;
         }
-        else return false;
+        return 0;
     }
 
     public TreeSet<Integer> falten(int x, int y) {
@@ -142,16 +143,11 @@ class SudokuBoard extends Board{
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
                 if(val == 0) erase(i+1, j+1);
-                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
+                else if(setValueCell(val, i+1, j+1) == 0) throw new InvalidNumberInCellException();
             }
         }
     }
 
-
-
-
-
-    @Override
     public int getValueCell(int row, int column) {
         return board.get(row).get(column).getValue();
     }

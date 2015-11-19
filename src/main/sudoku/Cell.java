@@ -13,7 +13,6 @@ public class Cell {
     int value;
     int column; //numero de columna
     int row; //numero de fila
-    boolean[] annotations = new boolean[Board.consult_max_annotations()]; //marques
     boolean visible; //per veure si la casella és visible
     boolean written; //per veure si el valor ja venia donat en el joc o no
 
@@ -23,8 +22,6 @@ public class Cell {
         written = false;
         visible = false;
         value = -1;
-        for (int i = 0; i < annotations.length; i++) annotations[i] = false;
-
     }
 
     public int getValue() {
