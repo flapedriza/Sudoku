@@ -1,6 +1,6 @@
 /**
  * Created by victor on 11/11/2015.
- */
+
 
 package main.sudoku;
 
@@ -126,4 +126,4 @@ public abstract class Stats {
     public int countPlayers() { return players.size(); }
     public int countGames() { return games.size(); }
     public int countMatches() { return matches.size(); }
-}
+}*/

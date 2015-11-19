@@ -141,7 +141,8 @@ class SudokuBoard extends Board{
         for(int i=0;i<size;++i) {
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
-                if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
+                if(val == 0) erase(i+1, j+1);
+                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
             }
         }
     }

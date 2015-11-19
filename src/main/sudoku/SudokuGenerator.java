@@ -1,30 +1,14 @@
 package main.sudoku;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * Created by Francesc on 7/11/2015.
  */
-
-class Pair {
-    int first;
-    int second;
-    public Pair(int first, int second) {
-        this.first = first;
-        this.second = second;
-    }
-}
-
-class PairComparator implements Comparator<Pair> {
-    public int compare(Pair p1, Pair p2) {
-        Random random = new Random();
-        int a = random.nextInt(2);
-        int ret = (a == 0) ? -1 : 1;
-        if(p1.second == p2.second) return ret;
-        else return (p1.second < p2.second) ? -1 : 1;
-    }
-}
 
 public class SudokuGenerator {
     public enum Difficulty {EASY, NORMAL, HARD}
@@ -44,6 +28,7 @@ public class SudokuGenerator {
 
     }
     public void generate(SudokuBoard board) {
+        board.clear();
         create(board,1);
         finished = false;
         //removeCells(board, (size*size)/2);
