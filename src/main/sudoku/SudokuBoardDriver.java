@@ -12,12 +12,8 @@ public class SudokuBoardDriver {
     static Scanner reader = new Scanner(System.in);
     private static void createBoard() throws OutOfRangeException {
         System.out.println("Tamany: ");
-        try {
-            int size = reader.nextInt();
-        }
-        catch (OutOfRangeException ex){
-            board = new SudokuBoard(size);
-        }
+        int size = reader.nextInt();
+        board = new SudokuBoard(size);
     }
 
     private static void setValue() {
@@ -59,7 +55,7 @@ public class SudokuBoardDriver {
         System.out.println("La cel·la té el valor: "+val);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws OutOfRangeException {
         System.out.println("Creeu el taulell: ");
         createBoard();
         System.out.println("Opcions:\n1.Llegir sudoku\n2.Assignar valor a cel·la\n3.Consultar possibles valors de la cel·la\n4.Eliminar valor de la cel·la\n5.Consultar valor de la cel·la\n6.Imprimir taulell\n7.Esborrar sudoku\n8.Sortir");
