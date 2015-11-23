@@ -12,8 +12,13 @@ public class SudokuBoardDriver {
     static Scanner reader = new Scanner(System.in);
     private static void createBoard() {
         System.out.println("Tamany: ");
-        int size = reader.nextInt();
-        board = new SudokuBoard(size);
+        try {
+            int size = reader.nextInt();
+        }
+        catch(OutOfRangeException ou){
+            System.out.println("S'ha introduit un tamany massa gran");
+            board = new SudokuBoard(size); //problema amb el size I dont Know why
+        }
     }
 
     private static void setValue() {
