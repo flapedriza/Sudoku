@@ -10,14 +10,13 @@ import java.util.TreeSet;
 public class SudokuBoardDriver {
     static SudokuBoard board;
     static Scanner reader = new Scanner(System.in);
-    private static void createBoard() {
+    private static void createBoard() throws OutOfRangeException {
         System.out.println("Tamany: ");
         try {
             int size = reader.nextInt();
         }
-        catch(OutOfRangeException ou){
-            System.out.println("S'ha introduit un tamany massa gran");
-            board = new SudokuBoard(size); //problema amb el size I dont Know why
+        catch (OutOfRangeException ex){
+            board = new SudokuBoard(size);
         }
     }
 

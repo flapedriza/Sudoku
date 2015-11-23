@@ -20,8 +20,9 @@ class SudokuBoard {
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
 
-    public SudokuBoard(int size) throws OutOfRangeException {
+    public SudokuBoard(int size)  throws OutOfRangeException  {
         this.size = size;
+        if (size > 9) throw new OutOfRangeException();
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
