@@ -7,7 +7,9 @@ import java.util.TreeSet;
 /**
  * Created by Adri on 12/11/15.
  */
-
+class OutOfRangeException extends Exception {
+    public OutOfRangeException(){super();}
+}
 class InvalidNumberInCellException extends Exception {
     public InvalidNumberInCellException() { super(); }
 }
@@ -18,7 +20,7 @@ class SudokuBoard {
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
 
-    public SudokuBoard(int size) {
+    public SudokuBoard(int size) throws  {
         this.size = size;
         board = new ArrayList<>();
         rows = new ArrayList<>();
