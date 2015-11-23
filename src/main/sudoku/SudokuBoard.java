@@ -20,7 +20,7 @@ class SudokuBoard {
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
 
-    public SudokuBoard(int size) throws  {
+    public SudokuBoard(int size) throws OutOfRangeException {
         this.size = size;
         board = new ArrayList<>();
         rows = new ArrayList<>();
@@ -40,7 +40,7 @@ class SudokuBoard {
         }
     }
 
-    public SudokuBoard copia() {
+    public SudokuBoard copia() throws OutOfRangeException {
         int size = this.getSudokuSize();
         SudokuBoard copy = new SudokuBoard(size);
         for (int fila = 1; fila <= size; ++fila)
