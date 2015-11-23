@@ -7,8 +7,7 @@ import java.util.TreeSet;
 /**
  * Created by Adri on 12/11/15.
  */
-class OutOfRangeException extends Exception {
-    public OutOfRangeException(){super();}
+class OutOfRangeException extends Exception {public OutOfRangeException(){super();}
 }
 class InvalidNumberInCellException extends Exception {
     public InvalidNumberInCellException() { super(); }
