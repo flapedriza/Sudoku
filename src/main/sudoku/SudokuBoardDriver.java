@@ -18,19 +18,33 @@ public class SudokuBoardDriver {
                 board = new SudokuBoard(size);
                 break;
             } catch (OutOfRangeException e) {
-                System.out.print("Tamany no vàlid, torneu-ho a intentar");
+                System.out.println("Tamany no vàlid, torneu-ho a intentar");
             }
         }
     }
 
     private static void setValue() {
-        System.out.println("Valor: ");
-        int val = reader.nextInt();
-        System.out.println("Fila: ");
-        int row = reader.nextInt();
-        System.out.println("Columna: ");
-        int col = reader.nextInt();
-        board.setValueCell(val, row, col);
+        for (;;) {
+            System.out.println("Valor: ");
+            int val = reader.nextInt();
+            System.out.println("Fila: ");
+            int row = reader.nextInt();
+            System.out.println("Columna: ");
+            int col = reader.nextInt();
+            try {
+                for (;;) {
+                    if(board.setValueCell(val, row, col)) break;
+                    else {
+                        System.out.println("Aquest valor no es pot assignar a la cel·la, ja que incompleix les restriccions del sudoku");
+                        System.out.print("Seleccioneu un altre valor: ");
+                        val = reader.nextInt();
+                    }
+                }
+                break;
+            } catch (OutOfRangeException e) {
+                System.out.println("La fila/columna seleccionada o el valor  es trova fora del rang de valors possibles, torneu-ho a provar");
+            }
+        }
     }
 
     private static void falten() {
@@ -78,6 +92,9 @@ public class SudokuBoardDriver {
                     } catch(InvalidNumberInCellException ex) {
                         System.out.println("S'ha assignat un valor il·legal a una cel·la, torneu a introduïr el sudoku");
                         board.clear();
+                    } catch (OutOfRangeException e) {
+                        e.printStackTrace();
+                        System.exit(-1);
                     }
                 }
                     break;

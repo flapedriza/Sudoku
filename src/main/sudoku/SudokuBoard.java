@@ -22,7 +22,7 @@ class SudokuBoard {
 
     public SudokuBoard(int size)  throws OutOfRangeException  {
         this.size = size;
-        if (size != 9 || size != 16 || size != 4) throw new OutOfRangeException();
+        if (size != 9 && size != 16 && size != 4) throw new OutOfRangeException();
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
@@ -41,12 +41,22 @@ class SudokuBoard {
         }
     }
 
-    public SudokuBoard copia() throws OutOfRangeException {
+    public SudokuBoard copia() {
         int size = this.getSudokuSize();
-        SudokuBoard copy = new SudokuBoard(size);
+        SudokuBoard copy = null;
+        try {
+            copy = new SudokuBoard(size);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
         for (int fila = 1; fila <= size; ++fila)
             for (int columna = 1; columna <= size; ++columna)
+                try {
+                    assert copy != null;
                     copy.setValueCell(this.getValueCell(fila-1,columna-1),fila,columna);
+                } catch (OutOfRangeException e) {
+                    e.printStackTrace();
+                }
         return copy;
     }
 
@@ -59,23 +69,25 @@ class SudokuBoard {
         return true;
     }
 
-    public int setValueCell(int value, int row, int column) {
-        if(value < 0 || value > size || row <= 0 || row > size
-                || column <= 0 || column > size) return 2;
-        if(!falten(row, column).contains(value)) return 0;
-        int reg = region(row, column);
-        Row rowz = rows.get(row-1);
-        Col colz = cols.get(column-1);
-        Reg regz = regs.get(reg-1);
-
-        if(!rowz.usats.get(value-1) && !colz.usats.get(value-1) && !regz.usats.get(value-1)) {
+    public boolean setValueCell(int value, int row, int column) throws OutOfRangeException {
+        if(row <= 0 || row > size || column <= 0 || column > size) throw new OutOfRangeException();
+        if(value < 0 || value > size) throw new OutOfRangeException();
+        if(value == 0) {
+            erase(row, column);
+            return true;
+        }
+        if(!falten(row, column).contains(value)) return false;
+        else {
             board.get(row-1).get(column-1).setValue(value);
+            int reg = region(row, column);
+            Row rowz = rows.get(row-1);
+            Col colz = cols.get(column-1);
+            Reg regz = regs.get(reg-1);
             rowz.add(value);
             colz.add(value);
             regz.add(value);
-            return 1;
+            return true;
         }
-        return 0;
     }
 
     public TreeSet<Integer> falten(int x, int y) {
@@ -93,13 +105,13 @@ class SudokuBoard {
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
         Reg regz = regs.get(reg-1);
-            int valold = board.get(row-1).get(column-1).getValue();
-            board.get(row-1).get(column-1).setValue(0);
-            if(valold != 0) {
-                rowz.remove(valold);
-                colz.remove(valold);
-                regz.remove(valold);
-            }
+        int valold = board.get(row-1).get(column-1).getValue();
+        board.get(row-1).get(column-1).setValue(0);
+        if(valold != 0) {
+            rowz.remove(valold);
+            colz.remove(valold);
+            regz.remove(valold);
+        }
     }
 
 
@@ -140,13 +152,13 @@ class SudokuBoard {
         }
     }
 
-    public void read() throws InvalidNumberInCellException {
+    public void read() throws InvalidNumberInCellException, OutOfRangeException {
         Scanner reader = new Scanner(System.in);
         for(int i=0;i<size;++i) {
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
                 if(val == 0) erase(i+1, j+1);
-                else if(setValueCell(val, i+1, j+1) == 0) throw new InvalidNumberInCellException();
+                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
             }
         }
     }
@@ -164,5 +176,5 @@ class SudokuBoard {
     }
 
 
-    public int getSudokuSize() {return regs.size();}
+    public int getSudokuSize() {return this.size;}
 }

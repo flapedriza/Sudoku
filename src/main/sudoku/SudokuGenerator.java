@@ -82,12 +82,16 @@ public class SudokuGenerator {
             Collections.shuffle(list);
             for(int n = 0; n<list.size();++n) {
                 int m = list.get(n);
-                if(board.setValueCell(m, rc.first, rc.second) == 1) {
-                    if(rec.equals(size*size)) {
-                        finished = true;
-                        return;
+                try {
+                    if(board.setValueCell(m, rc.first, rc.second)) {
+                        if(rec.equals(size*size)) {
+                            finished = true;
+                            return;
+                        }
+                        else create(board, rec+1);
                     }
-                    else create(board, rec+1);
+                } catch (OutOfRangeException e) {
+                    e.printStackTrace();
                 }
                 if(!finished)board.erase( rc.first, rc.second);
             }

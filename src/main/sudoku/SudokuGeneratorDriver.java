@@ -26,7 +26,7 @@ public class SudokuGeneratorDriver {
             default: difficulty = SudokuGenerator.Difficulty.EASY;
                 break;
         }
-        board = new SudokuBoard(size);
+       // board = new SudokuBoard(size);
         gen = new SudokuGenerator(difficulty, size);
     }
 
