@@ -10,10 +10,17 @@ import java.util.TreeSet;
 public class SudokuBoardDriver {
     static SudokuBoard board;
     static Scanner reader = new Scanner(System.in);
-    private static void createBoard() throws OutOfRangeException {
-        System.out.println("Tamany: ");
-        int size = reader.nextInt();
-        board = new SudokuBoard(size);
+    private static void createBoard()  {
+        for (;;) {
+            System.out.println("Tamany(4, 9, 16): ");
+            int size = reader.nextInt();
+            try {
+                board = new SudokuBoard(size);
+                break;
+            } catch (OutOfRangeException e) {
+                System.out.print("Tamany no vàlid, torneu-ho a intentar");
+            }
+        }
     }
 
     private static void setValue() {
@@ -64,7 +71,7 @@ public class SudokuBoardDriver {
             System.out.print("Opció: ");
             option = reader.nextInt();
             switch (option) {
-                case 1: while(true) {
+                case 1: for(;;) {
                     try {
                         board.read();
                         break;
