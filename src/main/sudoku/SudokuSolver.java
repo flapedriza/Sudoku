@@ -78,7 +78,11 @@ public class SudokuSolver {
         TreeSet<Integer> values = sudoku.falten(fila,columna);
         for (int value : values) {
             System.out.println(value);
-            sudoku.setValueCell(value,fila,columna);
+            try {
+                sudoku.setValueCell(value,fila,columna);
+            } catch (OutOfRangeException e) {
+                e.printStackTrace();
+            }
             if (solve_BT(posicions)) return true;
             sudoku.erase(fila,columna);
         }
