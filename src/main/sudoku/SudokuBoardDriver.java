@@ -62,7 +62,7 @@ public class SudokuBoardDriver {
         System.out.println("La cel·la té el valor: "+val);
     }
 
-    public static void main(String[] args) throws OutOfRangeException {
+    public static void main(String[] args) {
         System.out.println("Creeu el taulell: ");
         createBoard();
         System.out.println("Opcions:\n1.Llegir sudoku\n2.Assignar valor a cel·la\n3.Consultar possibles valors de la cel·la\n4.Eliminar valor de la cel·la\n5.Consultar valor de la cel·la\n6.Imprimir taulell\n7.Esborrar sudoku\n8.Sortir");

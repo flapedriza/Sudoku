@@ -22,7 +22,7 @@ class SudokuBoard {
 
     public SudokuBoard(int size)  throws OutOfRangeException  {
         this.size = size;
-        if (size > 9) throw new OutOfRangeException();
+        if (size != 9 || size != 16 || size != 4) throw new OutOfRangeException();
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
