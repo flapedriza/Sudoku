@@ -10,7 +10,8 @@ public class SudokuGeneratorDriver {
     static SudokuGenerator gen;
     static Scanner reader = new Scanner(System.in);
 
-    private static void createBoard() {
+    private static void createBoard(){
+
         System.out.print("Tamany: ");
         int size = reader.nextInt();
         System.out.print("Dificultat(Facil, Normal, Dificil: ");
@@ -26,8 +27,23 @@ public class SudokuGeneratorDriver {
             default: difficulty = SudokuGenerator.Difficulty.EASY;
                 break;
         }
-        board = new SudokuBoard(size);
-        gen = new SudokuGenerator(difficulty, size);
+        for (;;) {
+            try {
+                board = new SudokuBoard(size);
+                break;
+            } catch (OutOfRangeException exc) {
+                System.out.println("Tamany no vàlid, torneu-ho a intentar");
+            }
+        }
+        for (;;) {
+            try {
+                gen = new SudokuGenerator(difficulty, size);
+                break;
+            } catch (OutOfRangeException exc1) {
+                System.out.println("Tamany no vàlid, torneu-ho a intentar");
+            }
+        }
+
     }
 
     private static void generate() {
