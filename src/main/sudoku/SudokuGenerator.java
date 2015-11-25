@@ -28,7 +28,7 @@ public class SudokuGenerator {
         this.finished = false;
 
     }
-    public void generate(SudokuBoard board) {
+    public void generate(SudokuBoard board) throws OutOfRangeException {
         board.clear();
         create(board,1);
         finished = false;
@@ -63,7 +63,7 @@ public class SudokuGenerator {
         this.difficulty = dif;
     }
 
-    public void removeCells(SudokuBoard board, int number){
+    public void removeCells(SudokuBoard board, int number) throws OutOfRangeException {
         ArrayList<Integer> cells = new ArrayList<>();
         for(int i=1;i<=size*size;++i) cells.add(i);
         Collections.shuffle(cells);
@@ -73,7 +73,7 @@ public class SudokuGenerator {
         }
     }
 
-    public void create(SudokuBoard board, Integer rec) {
+    public void create(SudokuBoard board, Integer rec) throws OutOfRangeException {
         if(!finished) {
             Pair rc = rowColFromNum(rec);
             ArrayList<Integer> list = new ArrayList<>();

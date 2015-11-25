@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class Ranking {
 
-    private Table<Player> _players;
+    private Table<Player>
+            _players;
     private ArrayList<Integer> _values;
     private boolean _asc;
     private ArrayList<Integer> _order;

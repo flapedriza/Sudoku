@@ -60,11 +60,18 @@ public class SudokuBoardDriver {
     }
 
     private static void erase() {
-        System.out.println("Fila: ");
-        int row = reader.nextInt();
-        System.out.println("Columna: ");
-        int col = reader.nextInt();
-        board.erase(row, col);
+        for (; ; ) {
+            System.out.println("Fila: ");
+            int row = reader.nextInt();
+            System.out.println("Columna: ");
+            int col = reader.nextInt();
+            try {
+                board.erase(row, col);
+                break;
+            } catch (OutOfRangeException colrow) {
+                    System.out.println("Fila o columna invalida, torna-ho a intentar.");
+            }
+        }
     }
 
     private static void valueCell() {

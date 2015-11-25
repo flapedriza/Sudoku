@@ -91,7 +91,7 @@ class SudokuBoard {
         return a;
 
     }
-    public void erase (int row,int column ){
+    public void erase (int row,int column ) throws OutOfRangeException{
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
@@ -139,7 +139,12 @@ class SudokuBoard {
 
     public void clear() {
         for(int i=0;i<size;++i) {
-            for(int j=0;j<size;++j) erase(i+1, j+1);
+            for(int j=0;j<size;++j)
+                try {
+                    erase(i+1, j+1);
+                } catch (OutOfRangeException e) {
+                    e.printStackTrace();
+                }
         }
     }
 
