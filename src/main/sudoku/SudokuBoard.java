@@ -100,7 +100,7 @@ class SudokuBoard {
         return buides;
     }
 
-    public TreeSet<Integer> falten(int x, int y) {
+    public TreeSet<Integer> falten(int x, int y) throws OutOfRangeException{
         int reg = region(x, y);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
         TreeSet<Integer> b = new TreeSet<>(cols.get(y-1).falten);

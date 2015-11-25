@@ -48,15 +48,22 @@ public class SudokuBoardDriver {
     }
 
     private static void falten() {
-        System.out.println("Fila: ");
-        int row = reader.nextInt();
-        System.out.println("Columna: ");
-        int col = reader.nextInt();
-        TreeSet<Integer> set = board.falten(row, col);
-        Iterator<Integer> it = set.iterator();
-        System.out.print("La cel·la pot assolir els següents valors: ");
-        while (it.hasNext()) System.out.print(" "+it.next());
-        System.out.println();
+        for(;;) {
+            System.out.println("Fila: ");
+            int row = reader.nextInt();
+            System.out.println("Columna: ");
+            int col = reader.nextInt();
+            try {
+                TreeSet<Integer> set = board.falten(row, col);
+                Iterator<Integer> it = set.iterator();
+                System.out.print("La cel·la pot assolir els següents valors: ");
+                while (it.hasNext()) System.out.print(" " + it.next());
+                System.out.println();
+                break;
+            } catch (OutOfRangeException u) {
+                System.out.print("Has introduit una fila o una columna erronea. ");
+            }
+        }
     }
 
     private static void erase() {
