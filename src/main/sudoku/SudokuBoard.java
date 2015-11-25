@@ -7,6 +7,7 @@ import java.util.TreeSet;
 class SudokuBoard {
     int size;
     ArrayList<ArrayList<SudokuCell>> board;
+    TreeSet<Integer> buides;
     ArrayList<Row> rows;
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
@@ -18,11 +19,14 @@ class SudokuBoard {
         rows = new ArrayList<>();
         cols = new ArrayList<>();
         regs = new ArrayList<>();
+        buides = new TreeSet<>();
         for(int i = 1; i<=size;++i) {
+            for(int j = 1; j<=size;++j) buides.add(numFromRowCol(new Pair(i, j)));
             rows.add(new Row(size, i));
             cols.add(new Col(size, i));
             regs.add(new Reg(size, i));
         }
+        System.out.println(buides);
         for(int i=0;i<size;++i) {
             board.add(new ArrayList<SudokuCell>());
             for(int j=0;j<size;++j) {
@@ -79,6 +83,7 @@ class SudokuBoard {
         }
         if(!falten(row, column).contains(value)) return false;
         else {
+            buides.remove(numFromRowCol(new Pair(row, column)));
             board.get(row-1).get(column-1).setValue(value);
             int reg = region(row, column);
             Row rowz = rows.get(row-1);
@@ -109,6 +114,7 @@ class SudokuBoard {
         int valold = board.get(row-1).get(column-1).getValue();
         board.get(row-1).get(column-1).setValue(0);
         if(valold != 0) {
+            buides.add(numFromRowCol(new Pair(row, column)));
             rowz.remove(valold);
             colz.remove(valold);
             regz.remove(valold);
@@ -139,7 +145,7 @@ class SudokuBoard {
         System.out.println();
     }
 
-    public char printableCell(int r, int c) {
+    private char printableCell(int r, int c) {
         int value = getValueCell(r,c);
         if (value == 0) return '·';
         if (value < 10) return (char) ('0'+value);
@@ -167,13 +173,23 @@ class SudokuBoard {
     public int getValueCell(int row, int column) {
         return board.get(row).get(column).getValue();
     }
-    public Reg getReg(int n){return regs.get(n-1);}
-    public Col getCol(int n) {return cols.get(n-1);}
-    public Row getRow(int n) {return rows.get(n-1);}
 
     private int region(int row, int column) {
         int tam = (int) (Math.sqrt(size));
         return 1 + (column-1)/tam + ((row-1)/tam)*tam;
+    }
+
+    private int numFromRowCol(Pair rc) {
+        int a = rc.first - 1;
+        int b = rc.second -1;
+        return a*size+b+1;
+    }
+
+    private Pair rowColFromNum(int n) {
+        int m = n-1;
+        int row = m/size;
+        int col = m%size;
+        return new Pair(row+1, col+1);
     }
 
 
