@@ -3,7 +3,7 @@ package main.sudoku;
 import java.util.Scanner;
 
 /**
- * Created by Adri on 15/11/15.
+ * Created by Francesc on 15/11/15.
  */
 public class SudokuGeneratorDriver {
     static SudokuBoard board;
@@ -12,18 +12,18 @@ public class SudokuGeneratorDriver {
 
     private static void createBoard(){
 
-        System.out.print("Tamany: ");
+        System.out.print("Tamany(4, 9, 16): ");
         int size = reader.nextInt();
         for (;;) {
             try {
                 board = new SudokuBoard(size);
                 break;
             } catch (OutOfRangeException exc) {
-                System.out.println("Tamany no vàlid, torneu-ho a intentar");
+                System.out.print("Tamany no vàlid, torneu-ho a intentar\nTamany(4, 9, 16): ");
                 size = reader.nextInt();
             }
         }
-        System.out.print("Dificultat(Facil, Normal, Dificil: ");
+        System.out.print("Dificultat(Facil, Normal, Dificil): ");
         String dif = reader.next();
         SudokuGenerator.Difficulty difficulty;
         switch (dif) {

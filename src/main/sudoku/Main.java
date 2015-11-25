@@ -10,12 +10,15 @@ public class Main {
         } catch (OutOfRangeException e) {
             e.printStackTrace();
         }
-        //SudokuGenerator gen = new SudokuGenerator(SudokuGenerator.Difficulty.EASY, 9);
-        //gen.generate(board);
-        //gen.removeCells(board, 10);
-        SudokuBoard solved = SudokuSolver.solve(board);
-        board.print();
-        solved.print();
+        try {
+            board.setValueCell(1,1,1);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
+        System.out.println(board.buides);
+        board.erase(1, 1);
+        System.out.println(board.buides);
+
 
     }
 }
