@@ -32,6 +32,16 @@ class SudokuBoard {
         }
     }
 
+    public SudokuBoard(SudokuBoard board) throws OutOfRangeException {
+        this(board.getSudokuSize());
+        for(int i=1;i<=size;++i) {
+            for(int j=1;j<=size;++j) {
+                int val = board.getValueCell(i, j);
+                setValueCell(val, i, j);
+            }
+        }
+    }
+
     public SudokuBoard copia() {
         int size = this.getSudokuSize();
         SudokuBoard copy = null;
