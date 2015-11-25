@@ -33,7 +33,7 @@ public class SudokuGeneratorDriver {
                 break;
             case "Dificil": difficulty = SudokuGenerator.Difficulty.HARD;
                 break;
-            default: difficulty = SudokuGenerator.Difficulty.EASY;
+            default: difficulty = SudokuGenerator.Difficulty.NORMAL;
                 break;
         }
         for (;;) {

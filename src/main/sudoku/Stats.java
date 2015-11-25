@@ -37,7 +37,7 @@ public abstract class Stats {
         ArrayList<Integer> countedGames = new ArrayList<>();
         for (stubMatch m : _matches)
             if (m.getPlayer() == player && m.getResult() != -1)
-                insert_no_repeat(countedGames, m.getGame().getID());
+                insert_no_repeat(countedGames, m.getGame().getId());
         return countedGames.size();
     }
 
@@ -46,7 +46,7 @@ public abstract class Stats {
         ArrayList<Integer> countedGames = new ArrayList<>();
         for (stubMatch m : _matches)
             if (m.getPlayer() == player && m.getResult() != -1 && getDiff(m) == difficulty)
-                insert_no_repeat(countedGames, m.getGame().getID());
+                insert_no_repeat(countedGames, m.getGame().getId());
         return countedGames.size();
     }
 
@@ -128,6 +128,6 @@ public abstract class Stats {
 
     protected int getDiff(stubMatch match)
     {
-        return match.getGame().getDifficulty();
+        return match.getGame().getDifficult();
     }
 }

@@ -1,6 +1,8 @@
 package main.sudoku;
 
-public class stubGame implements Playable {
+import java.io.Serializable;
+
+public class stubGame implements Playable, Serializable {
     int _gameID;
     int _difficulty;
     // aqui faltaría un board al que asociar el game, pero no el necesito per Stats.
@@ -10,11 +12,11 @@ public class stubGame implements Playable {
         _difficulty = difficulty;
     }
 
-    public int getID() {
+    public int getId() {
         return _gameID;
     }
 
-    public int getDifficulty() {
+    public int getDifficult() {
         return _difficulty;
     }
 }

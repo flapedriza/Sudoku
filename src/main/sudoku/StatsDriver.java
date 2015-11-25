@@ -207,7 +207,7 @@ public class StatsDriver {
     private static int find(int gameID)
     {
         for (int i = 0; i < _games.size(); ++i)
-            if (_games.get(i).getID() == gameID) return i;
+            if (_games.get(i).getId() == gameID) return i;
         return -1;
     }
 
