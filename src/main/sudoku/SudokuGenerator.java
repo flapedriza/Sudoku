@@ -21,7 +21,8 @@ public class SudokuGenerator {
     public int size;
     boolean finished;
 
-    public SudokuGenerator(Difficulty dif, int size) {
+    public SudokuGenerator(Difficulty dif, int size) throws OutOfRangeException {
+        if (size != 9 && size != 16 && size != 4) throw new OutOfRangeException();
         this.size = size;
         this.difficulty = dif;
         this.finished = false;

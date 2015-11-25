@@ -10,7 +10,7 @@ public class SudokuGeneratorDriver {
     static SudokuGenerator gen;
     static Scanner reader = new Scanner(System.in);
 
-    private static void createBoard() {
+    private static void createBoard() throws OutOfRangeException {
         System.out.print("Tamany: ");
         int size = reader.nextInt();
         System.out.print("Dificultat(Facil, Normal, Dificil: ");
