@@ -14,6 +14,15 @@ public class SudokuGeneratorDriver {
 
         System.out.print("Tamany: ");
         int size = reader.nextInt();
+        for (;;) {
+            try {
+                board = new SudokuBoard(size);
+                break;
+            } catch (OutOfRangeException exc) {
+                System.out.println("Tamany no vàlid, torneu-ho a intentar");
+                size = reader.nextInt();
+            }
+        }
         System.out.print("Dificultat(Facil, Normal, Dificil: ");
         String dif = reader.next();
         SudokuGenerator.Difficulty difficulty;
@@ -29,15 +38,6 @@ public class SudokuGeneratorDriver {
         }
         for (;;) {
             try {
-                board = new SudokuBoard(size);
-                break;
-            } catch (OutOfRangeException exc) {
-                System.out.println("Tamany no vàlid, torneu-ho a intentar");
-                size = reader.nextInt();
-            }
-        }
-        for (;;) {
-            try {
                 gen = new SudokuGenerator(difficulty, size);
                 break;
             } catch (OutOfRangeException exc1) {
@@ -45,7 +45,6 @@ public class SudokuGeneratorDriver {
                 size = reader.nextInt();
             }
         }
-
     }
 
     private static void generate() {
