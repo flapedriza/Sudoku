@@ -33,6 +33,7 @@ public class SudokuGeneratorDriver {
                 break;
             } catch (OutOfRangeException exc) {
                 System.out.println("Tamany no vàlid, torneu-ho a intentar");
+                size = reader.nextInt();
             }
         }
         for (;;) {
@@ -41,6 +42,7 @@ public class SudokuGeneratorDriver {
                 break;
             } catch (OutOfRangeException exc1) {
                 System.out.println("Tamany no vàlid, torneu-ho a intentar");
+                size = reader.nextInt();
             }
         }
 
