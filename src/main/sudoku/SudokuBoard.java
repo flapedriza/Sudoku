@@ -96,6 +96,10 @@ class SudokuBoard {
         }
     }
 
+    public TreeSet<Integer> getBuides() {
+        return buides;
+    }
+
     public TreeSet<Integer> falten(int x, int y) {
         int reg = region(x, y);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
@@ -184,14 +188,6 @@ class SudokuBoard {
         int b = rc.second -1;
         return a*size+b+1;
     }
-
-    private Pair rowColFromNum(int n) {
-        int m = n-1;
-        int row = m/size;
-        int col = m%size;
-        return new Pair(row+1, col+1);
-    }
-
 
     public int getSudokuSize() {return this.size;}
 }
