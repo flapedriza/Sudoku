@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-class InvalidNumberInCellException extends Exception {
-    public InvalidNumberInCellException() { super(); }
-}
 class SudokuBoard {
     int size;
     ArrayList<ArrayList<SudokuCell>> board;
