@@ -1,129 +1,133 @@
-/**
- * Created by victor on 11/11/2015.
-
-
 package main.sudoku;
 
 import java.util.ArrayList;
 
-
 public abstract class Stats {
 
-    private ArrayList<Player> players;
-    private ArrayList<? extends Playable> games;
-    private ArrayList<Match> matches;
+    protected Table<Player> _players;
+    protected Table<? extends Playable> _games;
+    protected Table<stubMatch> _matches;
+    /** He posat els camps a protected per si voleu calcular més stats a la vostra subclasse.
+     * Com a mínim _matches ho hauria de ser, per a poder calcular l'score d'un player.
+     * L'unica alternativa es que Stats tingui getMatches() { return _matches; }
+     * Pero suposo que sent Stats abstract, no està tan mal que els camps siguin protected.
+     * La taula games casi no es fa servir, però només es un punter.
+    */
 
-    public Stats(ArrayList<Player> players, ArrayList<? extends Playable> games, ArrayList<Match> matches)
+    public Stats(Table<Player> players, Table<? extends Playable> games, Table<stubMatch> matches)
     {
-        this.players = players;
-        this.games = games;
-        this.matches = matches;
+        this._players = players;
+        this._games = games;
+        this._matches = matches;
     }
 
     /////// PLAYER STATS ////////////////////////////////////////////////////////////////////
-    public Ranking rankingGlobal()
-    {
-        ArrayList<Integer> scores = new ArrayList<Integer>();
-        for (int i = 0; i < players.size())
-            scores.add(i,score(players.get(i));
-        return Ranking(players,scores);
-    }
-
-    protected abstract int score(Player player);
+    public abstract int score(Player player);
 
     public int countMatches(Player player)
     {
-        int count;
-        String name = players.get(i).getName();
-        for (int i = 0; i < matches.size(); ++i)
-            if (matches.get(i).getPlayerName() == name) ++count;
+        int count = 0;
+        for (stubMatch m: _matches)
+            if (m.getPlayer() == player) ++count;
         return count;
     }
 
     public int countSolvedGames(Player player)
     {
-        ArrayList<Integer> countedGames = new ArrayList<Integer>();
-        String name = player.getName();
-
-        for (int i = 0; i < matches.size(); ++i) {
-            Match m = matches.get(i);
-            if (m.getPlayerName() == name && m.getResult() != -1)
-                insert_no_repeat(countedGames, matches.get(i).getGameId());
-        }
-
+        ArrayList<Integer> countedGames = new ArrayList<>();
+        for (stubMatch m : _matches)
+            if (m.getPlayer() == player && m.getResult() != -1)
+                insert_no_repeat(countedGames, m.getGame().getID());
         return countedGames.size();
     }
 
     public int countSolvedGamesDiff(int difficulty, Player player)
     {
-        ArrayList<Integer> countedGames = new ArrayList<Integer>();
-        String name = player.getName();
-
-        for (int i = 0; i < matches.size(); ++i) {
-            Match m = matches.get(i);
-            if (m.getPlayerName() == name && m.getResult() != -1 && getDiff(m) == difficulty)
-                insert_no_repeat(countedGames, matches.get(i).getGameId());
-        }
-
+        ArrayList<Integer> countedGames = new ArrayList<>();
+        for (stubMatch m : _matches)
+            if (m.getPlayer() == player && m.getResult() != -1 && getDiff(m) == difficulty)
+                insert_no_repeat(countedGames, m.getGame().getID());
         return countedGames.size();
     }
 
-    private void insert_no_repeat(ArrayList<Integer> array, int new_one)
+    public int rank(Player player)
     {
-        int left = 0;
-        int right = array.size();
-        while (left <= right) {
-            int i = (left + right) / 2;
-            if (array.get(i) < new_one) left = i + 1;
-            else if (array.get(i) > new_one) right = i - 1;
-            else return;
-        }
-        if (array.get(left) != new_one) array.add(left,new_one);
+        int rank = _players.size();
+        int score = score(player);
+        int i;
+        for (i = 0; _players.get(i) != player; ++i)
+            if (score >= score(_players.get(i))) --rank;
+        for (; i < _players.size(); ++i)
+            if (score > score(_players.get(i))) --rank;
+        return rank;
     }
 
-    private int getDiff(Match m)
+    public int bestTime(Player player, Playable game)
     {
-        int id = m.getGameId();
-        for (int i = 0; i < games.size(); ++i)
-            if (games.get(i).getGameId == id)
-                return games.get(i).getDifficult();
+        int time = -1;
+        for (stubMatch m : _matches)
+            if (m.getPlayer() == player && m.getGame() == game) {
+                if (time > m.computeTime()) time = m.computeTime();
+                else if (time == -1) time = m.computeTime();
+            }
+        return time;
     }
 
     /////// GAME STATS //////////////////////////////////////////////////////////////////////
-    public Ranking recordsGame(? extends Playable game)
+    public Ranking recordsGame(Playable game)
     {
-        ArrayList<Integer> besTimes = new ArrayList<Integer>();
-
-        // work in progress
-
-        return Ranking(players,besTimes);
+        ArrayList<Integer> bestTimes = new ArrayList<>();
+        for (Player p : _players) bestTimes.add(bestTime(p,game));
+        return new Ranking(_players,bestTimes,true);
     }
 
-    public int countTimesPlayed(? extends Playable game)
+    public int countTimesPlayed(Playable game)
     {
         int count = 0;
-        int id = game.getGameId();
-
-        for (int i = 0; i < matches.size(); ++i)
-            if (matches.get(i).getGameId() == id) ++count;
-
+        for (stubMatch match : _matches)
+            if (match.getGame() == game) ++count;
         return count;
     }
 
-    public int countTimesSolved(? extends Playable game)
+    public int countTimesSolved(Playable game)
     {
         int count = 0;
-        int id = game.getGameId();
-
-        for (int i = 0; i < matches.size(); ++i)
-            if (matches.get(i).getGameId() == id
-                    && matches.get(i).getResult() != -1) ++count;
-
+        for (stubMatch match : _matches)
+            if (match.getGame() == game&& match.getResult() != -1) ++count;
         return count;
     }
 
-    /////// USELESS STATS ///////////////////////////////////////////////////////////////////
-    public int countPlayers() { return players.size(); }
-    public int countGames() { return games.size(); }
-    public int countMatches() { return matches.size(); }
-}*/
+    /////// GLOBAL STATS ///////////////////////////////////////////////////////////////////
+    public Ranking rankingGlobal()
+    {
+        ArrayList<Integer> scores = new ArrayList<>();
+        for (Player p: _players) scores.add(score(p));
+        return new Ranking(_players,scores,false);
+    }
+
+    public int countPlayers() { return _players.size(); }
+    public int countGames() { return _games.size(); }
+    public int countMatches() { return _matches.size(); }
+
+    /////// INTERNAL METHODS ////////////////////////////////////////////////////////////////
+    protected void insert_no_repeat(ArrayList<Integer> array, int new_one)
+    {
+        if (array.size() == 0) array.add(0,new_one);
+        else {
+            int left = 0;
+            int right = array.size() - 1;
+            while (left <= right) {
+                int i = (left + right) / 2;
+                if (array.get(i) < new_one) left = i + 1;
+                else if (array.get(i) > new_one) right = i - 1;
+                else return;
+            }
+            array.add(left, new_one);
+        }
+    }
+
+    protected int getDiff(stubMatch match)
+    {
+        return match.getGame().getDifficulty();
+    }
+}
