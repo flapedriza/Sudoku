@@ -13,11 +13,9 @@ import java.util.TreeSet;
 public class SudokuGenerator {
     public enum Difficulty {EASY, NORMAL, HARD}
     Difficulty difficulty;
-    static int easy_threshold = 1;
-    static int normal_threshold = 2;
-    static int hard_threshold = 3;
-    static int min_cells;
-    static int max_cells;
+    static int easy = 25;
+    static int normal = 35;
+    static int hard = 45;
     public int size;
     boolean finished;
 

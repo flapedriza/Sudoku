@@ -16,6 +16,7 @@ public class SudokuSolver2 {
     }
 
     public SudokuBoard solve(SudokuBoard board) {
+        if(this.board != null) this.board = null;
         try {
             this.board = new SudokuBoard(board);
         } catch (OutOfRangeException e) {

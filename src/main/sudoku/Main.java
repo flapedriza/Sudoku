@@ -23,7 +23,7 @@ public class Main {
         }
         gen.generate(board);
         try {
-            gen.removeCells(board, 64);
+            gen.removeCells(board, 40);
         } catch (OutOfRangeException e) {
             e.printStackTrace();
         }
