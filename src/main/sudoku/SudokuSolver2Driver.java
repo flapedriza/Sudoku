@@ -1,14 +1,12 @@
 package main.sudoku;
 
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.TreeSet;
 /**
  * Created by Adri on 26/11/15.
  */
 public class SudokuSolver2Driver {
     static SudokuBoard board;
-    static SudokuSolver2 solv;
+    static SudokuSolver2 solv = new SudokuSolver2();
     static Scanner reader = new Scanner(System.in);
     private static void createBoard()  {
         for (;;) {
@@ -20,15 +18,15 @@ public class SudokuSolver2Driver {
             } catch (OutOfRangeException e) {
                 System.out.println("Tamany no vàlid, torneu-ho a intentar");
             }
-            System.out.println("Introdueix el Sudoku");
-            for(;;) {
-                try {
-                    board.read();
-                    break;
-                } catch (InvalidNumberInCellException | OutOfRangeException ex) {
-                    System.out.println("S'ha assignat un valor il·legal o fora de rang a una cel·la, torneu a introduïr el sudoku");
-                    board.clear();
-                }
+        }
+        System.out.println("Introdueix el Sudoku");
+        for(;;) {
+            try {
+                board.read();
+                break;
+            } catch (InvalidNumberInCellException | OutOfRangeException ex) {
+                System.out.println("S'ha assignat un valor il·legal o fora de rang a una cel·la, torneu a introduïr el sudoku");
+                board.clear();
             }
         }
     }
@@ -36,13 +34,13 @@ public class SudokuSolver2Driver {
         int n = solv.uniqueSolution(board);
         switch(n) {
             case 0:
-                System.out.println("No te solucio ");
+                System.out.println("No té solucio ");
                 break;
             case 1:
-                System.out.println("Te solució pero no es unica");
+                System.out.println("Té solució pero no és énica");
                 break;
             case 2:
-                System.out.println("Te solucio unica");
+                System.out.println("Té solucio única");
                 break;
             default: break;
 
