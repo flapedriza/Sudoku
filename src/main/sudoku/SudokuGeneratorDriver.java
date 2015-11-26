@@ -83,6 +83,7 @@ public class SudokuGeneratorDriver {
     }
 
     private static void create() {
+        board.clear();
         gen.create(board, 1);
     }
 
