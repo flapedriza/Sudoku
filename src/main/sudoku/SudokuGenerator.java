@@ -28,7 +28,7 @@ public class SudokuGenerator {
         this.finished = false;
 
     }
-    public void generate(SudokuBoard board) throws OutOfRangeException {
+    public void generate(SudokuBoard board)  {
         board.clear();
         create(board,1);
         finished = false;
@@ -64,6 +64,7 @@ public class SudokuGenerator {
     }
 
     public void removeCells(SudokuBoard board, int number) throws OutOfRangeException {
+        if(number > size*size) throw new OutOfRangeException();
         ArrayList<Integer> cells = new ArrayList<>();
         for(int i=1;i<=size*size;++i) cells.add(i);
         Collections.shuffle(cells);
@@ -73,11 +74,16 @@ public class SudokuGenerator {
         }
     }
 
-    public void create(SudokuBoard board, Integer rec) throws OutOfRangeException {
+    public void create(SudokuBoard board, Integer rec)  {
         if(!finished) {
             Pair rc = rowColFromNum(rec);
             ArrayList<Integer> list = new ArrayList<>();
-            TreeSet<Integer> set = board.falten(rc.first, rc.second);
+            TreeSet<Integer> set = null;
+            try {
+                set = board.falten(rc.first, rc.second);
+            } catch (OutOfRangeException e) {
+                e.printStackTrace();
+            }
             Iterator<Integer> it = set.iterator();
             while(it.hasNext()) list.add(it.next());
             Collections.shuffle(list);
@@ -94,7 +100,11 @@ public class SudokuGenerator {
                 } catch (OutOfRangeException e) {
                     e.printStackTrace();
                 }
-                if(!finished)board.erase( rc.first, rc.second);
+                if(!finished) try {
+                    board.erase( rc.first, rc.second);
+                } catch (OutOfRangeException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

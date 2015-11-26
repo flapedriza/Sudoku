@@ -40,7 +40,7 @@ class SudokuBoard {
         this(board.getSudokuSize());
         for(int i=1;i<=size;++i) {
             for(int j=1;j<=size;++j) {
-                int val = board.getValueCell(i, j);
+                int val = board.getValueCell(i-1, j-1);
                 setValueCell(val, i, j);
             }
         }
@@ -111,6 +111,7 @@ class SudokuBoard {
 
     }
     public void erase (int row,int column ) throws OutOfRangeException{
+        buides.add(numFromRowCol(new Pair(row, column)));
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
         Col colz = cols.get(column-1);
@@ -118,7 +119,6 @@ class SudokuBoard {
         int valold = board.get(row-1).get(column-1).getValue();
         board.get(row-1).get(column-1).setValue(0);
         if(valold != 0) {
-            buides.add(numFromRowCol(new Pair(row, column)));
             rowz.remove(valold);
             colz.remove(valold);
             regz.remove(valold);

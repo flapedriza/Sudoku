@@ -22,6 +22,7 @@ public class SudokuSolver2 {
         }
         ArrayList<Integer> posicions = new ArrayList<>();
         for(Integer i : board.getBuides()) posicions.add(i);
+        System.out.println(posicions);
         Boolean b = backtrack(posicions);
         if(!b) return null;
         return this.board;
@@ -32,7 +33,27 @@ public class SudokuSolver2 {
         int act = posicions.get(0);
         posicions.remove(0);
         Pair rc = rowColFromNum(act);
-        TreeSet<Integer> set = board.falten(rc.first, rc.second);
+        TreeSet<Integer> set = null;
+        try {
+            set = board.falten(rc.first, rc.second);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
+        for(int val : set) {
+            try {
+                if(board.setValueCell(val, rc.first, rc.second)) return true;
+            } catch (OutOfRangeException e) {
+                e.printStackTrace();
+            }
+            if(backtrack(posicions)) return true;
+            try {
+                board.erase(rc.first, rc.second);
+            } catch (OutOfRangeException e) {
+                e.printStackTrace();
+            }
+        }
+        posicions.add(0,act);
+        return false;
     }
 
     private Pair rowColFromNum(int n) {

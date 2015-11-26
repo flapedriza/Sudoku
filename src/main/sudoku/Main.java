@@ -11,13 +11,13 @@ public class Main {
             e.printStackTrace();
         }
         try {
-            board.setValueCell(1,1,1);
-        } catch (OutOfRangeException e) {
+            board.read();
+        } catch (InvalidNumberInCellException | OutOfRangeException e) {
             e.printStackTrace();
         }
-        System.out.println(board.buides);
-        board.erase(1, 1);
-        System.out.println(board.buides);
+        SudokuSolver2 solver = new SudokuSolver2();
+        solver.solve(board).print();
+
 
 
     }

@@ -59,7 +59,11 @@ public class SudokuGeneratorDriver {
     private static void removeCells() {
         System.out.println("Quantes caselles cal esborrar?");
         int val = reader.nextInt();
-        gen.removeCells(board, val);
+        try {
+            gen.removeCells(board, val);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
 
     }
 
