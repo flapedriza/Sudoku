@@ -24,7 +24,6 @@ public class SudokuSolver2 {
         }
         ArrayList<Integer> posicions = new ArrayList<>();
         for(Integer i : board.getBuides()) posicions.add(i);
-        System.out.println(posicions);
         Boolean b = backtrack(posicions, this.board);
         if(!b) return null;
         return this.board;

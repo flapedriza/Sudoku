@@ -26,7 +26,6 @@ class SudokuBoard {
             cols.add(new Col(size, i));
             regs.add(new Reg(size, i));
         }
-        System.out.println(buides);
         for(int i=0;i<size;++i) {
             board.add(new ArrayList<SudokuCell>());
             for(int j=0;j<size;++j) {
@@ -174,7 +173,7 @@ class SudokuBoard {
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
                 if(val == 0) erase(i+1, j+1);
-                else if(!setValueCell(val, i+1, j+1)) {System.out.println(i+1+" "+(j+1)); throw new InvalidNumberInCellException();}
+                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
             }
         }
     }

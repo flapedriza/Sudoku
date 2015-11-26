@@ -31,22 +31,22 @@ public class SudokuGenerator {
         create(board,1);
         finished = false;
         //removeCells(board, (size*size)/2);
-        /*int diff;
+        int diff = 0;
         Boolean done;
         switch (difficulty) {
-            case EASY : diff = easy_threshold;
+            case EASY : diff = easy;
                 break;
-            case NORMAL: diff = normal_threshold;
+            case NORMAL: diff = normal;
                 break;
-            case HARD: diff = hard_threshold;
+            case HARD: diff = hard;
                 break;
             default: break;
         }
-        for(int i = 1; i < max_cells; ++i) removecell(board);
-        do {
-            removecell(board);
-            done = true;//(Solver.evaluate(board) > diff);
-        } while (!done );*/
+        try {
+            removeCells(board, diff);
+        } catch (OutOfRangeException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -66,9 +66,17 @@ public class SudokuGenerator {
         ArrayList<Integer> cells = new ArrayList<>();
         for(int i=1;i<=size*size;++i) cells.add(i);
         Collections.shuffle(cells);
+        SudokuSolver2 solver2 = new SudokuSolver2();
         for(int i = 0; i<number; ++i) {
-            Pair rc = rowColFromNum(cells.get(i));
+            if(cells.isEmpty()) throw new OutOfRangeException();
+            Pair rc = rowColFromNum(cells.get(0));
+            int old = board.getValueCell(rc.first-1, rc.second-1);
             board.erase(rc.first, rc.second);
+            if(solver2.uniqueSolution(board) != 2) {
+                board.setValueCell(old, rc.first, rc.second);
+                --i;
+            }
+            cells.remove(0);
         }
     }
 

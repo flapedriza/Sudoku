@@ -48,12 +48,26 @@ public class SudokuGeneratorDriver {
     }
 
     private static void generate() {
+        board.clear();
         gen.generate(board);
     }
 
     private static void setDifficulty()
     {
-        //TODO
+        String dif = reader.next();
+        SudokuGenerator.Difficulty difficulty;
+        switch (dif) {
+            case "Facil" : difficulty = SudokuGenerator.Difficulty.EASY;
+                break;
+            case "Normal": difficulty = SudokuGenerator.Difficulty.NORMAL;
+                break;
+            case "Dificil": difficulty = SudokuGenerator.Difficulty.HARD;
+                break;
+            default: difficulty = SudokuGenerator.Difficulty.NORMAL;
+                break;
+        }
+        gen.setDifficulty(difficulty);
+
     }
 
     private static void removeCells() {
