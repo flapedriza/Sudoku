@@ -45,25 +45,6 @@ class SudokuBoard {
         }
     }
 
-    public SudokuBoard copia() {
-        int size = this.getSudokuSize();
-        SudokuBoard copy = null;
-        try {
-            copy = new SudokuBoard(size);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
-        for (int fila = 1; fila <= size; ++fila)
-            for (int columna = 1; columna <= size; ++columna)
-                try {
-                    assert copy != null;
-                    copy.setValueCell(this.getValueCell(fila-1,columna-1),fila,columna);
-                } catch (OutOfRangeException e) {
-                    e.printStackTrace();
-                }
-        return copy;
-    }
-
     public boolean equals(SudokuBoard b2) {
         if (this.size != b2.getSudokuSize()) return false;
 
