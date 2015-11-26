@@ -103,12 +103,9 @@ public class SudokuBoardDriver {
                     try {
                         board.read();
                         break;
-                    } catch(InvalidNumberInCellException ex) {
-                        System.out.println("S'ha assignat un valor il·legal a una cel·la, torneu a introduïr el sudoku");
+                    } catch(InvalidNumberInCellException | OutOfRangeException ex) {
+                        System.out.println("S'ha assignat un valor il·legal o fora de rang a una cel·la, torneu a introduïr el sudoku");
                         board.clear();
-                    } catch (OutOfRangeException e) {
-                        e.printStackTrace();
-                        System.exit(-1);
                     }
                 }
                     break;
