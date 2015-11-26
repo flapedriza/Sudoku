@@ -65,12 +65,12 @@ class SudokuBoard {
         return copy;
     }
 
-    public boolean iguals(SudokuBoard b2) {
+    public boolean equals(SudokuBoard b2) {
         if (this.size != b2.getSudokuSize()) return false;
 
         for (int fila = 1; fila <= size; ++fila)
             for (int columna = 1; columna <= size; ++columna)
-                if (this.getValueCell(fila,columna) != b2.getValueCell(fila,columna)) return false;
+                if (this.getValueCell(fila-1,columna-1) != b2.getValueCell(fila-1,columna-1)) return false;
         return true;
     }
 
@@ -174,7 +174,7 @@ class SudokuBoard {
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
                 if(val == 0) erase(i+1, j+1);
-                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
+                else if(!setValueCell(val, i+1, j+1)) {System.out.println(i+1+" "+(j+1)); throw new InvalidNumberInCellException();}
             }
         }
     }
