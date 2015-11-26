@@ -41,7 +41,7 @@ public class SudokuSolver2 {
         }
         for(int val : set) {
             try {
-                if(board.setValueCell(val, rc.first, rc.second)) return true;
+                board.setValueCell(val, rc.first, rc.second);
             } catch (OutOfRangeException e) {
                 e.printStackTrace();
             }
