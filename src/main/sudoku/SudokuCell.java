@@ -3,6 +3,9 @@ package main.sudoku;
 /**
  * Created by Adri on 12/11/15.
  */
+
+/** Class used to save the specific SudokuCell with Reg Col and Row
+ */
 public class SudokuCell extends Cell {
     Reg reg;
     Col col;
@@ -14,15 +17,15 @@ public class SudokuCell extends Cell {
         row = fila;
         value = 0;
     }
-
+    /** Return Region Number*/
     public Reg getRegZone() {
         return reg;
     }
-
+    /** Return Column Number*/
     public Col getColZone() {
         return col;
     }
-
+    /** Return Row Number*/
     public Row getRowZone() {
         return row;
     }

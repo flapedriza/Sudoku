@@ -10,6 +10,9 @@ import java.util.TreeSet;
  * Created by Francesc on 7/11/2015.
  */
 
+/**
+ * SudokuGenerator Class make sudokus with solution for solve later
+ */
 public class SudokuGenerator {
     public enum Difficulty {EASY, NORMAL, HARD}
     Difficulty difficulty;
@@ -19,6 +22,12 @@ public class SudokuGenerator {
     public int size;
     boolean finished;
 
+    /**
+     * Create a Sudoku with size "size" and dificulty "dif"
+     * @param dif
+     * @param size
+     * @throws OutOfRangeException
+     */
     public SudokuGenerator(Difficulty dif, int size) throws OutOfRangeException {
         if (size != 9 && size != 16 && size != 4) throw new OutOfRangeException();
         this.size = size;
@@ -26,6 +35,11 @@ public class SudokuGenerator {
         this.finished = false;
 
     }
+
+    /**
+     * Generate a new Sudoku With dificulty.
+     * @param board
+     */
     public void generate(SudokuBoard board)  {
         board.clear();
         create(board,1);
@@ -61,6 +75,12 @@ public class SudokuGenerator {
         this.difficulty = dif;
     }
 
+    /**
+     * Remove a Number of Cells that we specify and refresh the values of zones.
+     * @param board
+     * @param number
+     * @throws OutOfRangeException
+     */
     public void removeCells(SudokuBoard board, int number) throws OutOfRangeException {
         if(number > size*size) throw new OutOfRangeException();
         ArrayList<Integer> cells = new ArrayList<>();
@@ -80,6 +100,11 @@ public class SudokuGenerator {
         }
     }
 
+    /**
+     * Create the finished Sudoku for Solve
+     * @param board
+     * @param rec
+     */
     public void create(SudokuBoard board, Integer rec)  {
         if(!finished) {
             Pair rc = rowColFromNum(rec);

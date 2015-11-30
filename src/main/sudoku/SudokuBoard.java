@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+/**
+ * Clas SudokuBoard used to make sudokus and his functionalities
+ */
 class SudokuBoard {
     int size;
     ArrayList<ArrayList<SudokuCell>> board;
@@ -12,6 +15,11 @@ class SudokuBoard {
     ArrayList<Col> cols;
     ArrayList<Reg> regs;
 
+    /**
+     * Make the boards and the Zones.
+     * @param size
+     * @throws OutOfRangeException
+     */
     public SudokuBoard(int size)  throws OutOfRangeException  {
         this.size = size;
         if (size != 9 && size != 16 && size != 4) throw new OutOfRangeException();
@@ -35,6 +43,11 @@ class SudokuBoard {
         }
     }
 
+    /**
+     * The cells takes values for a board.
+     * @param board
+     * @throws OutOfRangeException
+     */
     public SudokuBoard(SudokuBoard board) throws OutOfRangeException {
         this(board.getSudokuSize());
         for(int i=1;i<=size;++i) {
@@ -45,6 +58,10 @@ class SudokuBoard {
         }
     }
 
+    /**
+     * Compare two Sudokus and return a bool if was the same
+     * @param b2 was a SudokuBoard copy
+     */
     public boolean equals(SudokuBoard b2) {
         if (this.size != b2.getSudokuSize()) return false;
 
@@ -54,6 +71,13 @@ class SudokuBoard {
         return true;
     }
 
+    /**
+     * Function to take value for a Cell
+     * @param value was the value for the cell
+     * @param row
+     * @param column
+     * @throws OutOfRangeException
+     */
     public boolean setValueCell(int value, int row, int column) throws OutOfRangeException {
         if(row <= 0 || row > size || column <= 0 || column > size) throw new OutOfRangeException();
         if(value < 0 || value > size) throw new OutOfRangeException();
@@ -80,6 +104,13 @@ class SudokuBoard {
         return buides;
     }
 
+    /**
+     * A function to make a intersection with diferent zones
+     * @param x
+     * @param y
+     * @return
+     * @throws OutOfRangeException
+     */
     public TreeSet<Integer> falten(int x, int y) throws OutOfRangeException{
         int reg = region(x, y);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
@@ -90,6 +121,13 @@ class SudokuBoard {
         return a;
 
     }
+
+    /**
+     * Function that actualize the Zones and the Board.
+     * @param row
+     * @param column
+     * @throws OutOfRangeException
+     */
     public void erase (int row,int column ) throws OutOfRangeException{
         buides.add(numFromRowCol(new Pair(row, column)));
         int reg = region(row, column);
@@ -105,7 +143,9 @@ class SudokuBoard {
         }
     }
 
-
+    /**
+     * Print the SudokuBoard and the table
+     */
     public void print() {
         int sqroot = (int) (Math.sqrt(size));
         //System.out.println();
@@ -129,6 +169,12 @@ class SudokuBoard {
         System.out.println();
     }
 
+    /**
+     * Print the Values of Cells
+     * @param r
+     * @param c
+     * @return
+     */
     private char printableCell(int r, int c) {
         int value = getValueCell(r,c);
         if (value == 0) return '·';
@@ -137,6 +183,9 @@ class SudokuBoard {
         else return (char) ('A' + (value - 10));
     }
 
+    /**
+     * Function to clear the board
+     */
     public void clear() {
         for(int i=0;i<size;++i) {
             for(int j=0;j<size;++j)
@@ -148,6 +197,11 @@ class SudokuBoard {
         }
     }
 
+    /**
+     * Read the board that was introduced
+     * @throws InvalidNumberInCellException
+     * @throws OutOfRangeException
+     */
     public void read() throws InvalidNumberInCellException, OutOfRangeException {
         Scanner reader = new Scanner(System.in);
         for(int i=0;i<size;++i) {
@@ -159,14 +213,26 @@ class SudokuBoard {
         }
     }
 
+    /**
+     * Returns the value of the cell
+     * @param row
+     * @param column
+     */
     public int getValueCell(int row, int column) {
         return board.get(row).get(column).getValue();
     }
 
+    /**
+     * Function that calcule the Region for a Cell
+     * @param row
+     * @param column
+     * @return
+     */
     private int region(int row, int column) {
         int tam = (int) (Math.sqrt(size));
         return 1 + (column-1)/tam + ((row-1)/tam)*tam;
     }
+
 
     private int numFromRowCol(Pair rc) {
         int a = rc.first - 1;

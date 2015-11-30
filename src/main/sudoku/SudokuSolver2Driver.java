@@ -1,12 +1,13 @@
 package main.sudoku;
 
 import java.util.Scanner;
+
 /**
  * Created by Adri on 26/11/15.
  */
 public class SudokuSolver2Driver {
     static SudokuBoard board;
-    static SudokuSolver2 solv = new SudokuSolver2();
+    static SudokuSolver2 solv;
     static Scanner reader = new Scanner(System.in);
     private static void createBoard()  {
         for (;;) {
@@ -29,18 +30,19 @@ public class SudokuSolver2Driver {
                 board.clear();
             }
         }
+
     }
     private static void es_solucio_unica(){
         int n = solv.uniqueSolution(board);
         switch(n) {
             case 0:
-                System.out.println("No té solucio ");
+                System.out.println("No te solucio ");
                 break;
             case 1:
-                System.out.println("Té solució pero no és énica");
+                System.out.println("Te solució pero no es unica");
                 break;
             case 2:
-                System.out.println("Té solucio única");
+                System.out.println("Te solucio unica");
                 break;
             default: break;
 
