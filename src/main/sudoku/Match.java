@@ -25,6 +25,8 @@ public class Match extends Game implements java.io.Serializable {
         result = -1;  //no hi ha resultat encara
     }
 
+    public Match() {}
+
     public int getTime() {
         return time;
     }
