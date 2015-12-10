@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 import java.util.Scanner;
 
@@ -81,6 +81,7 @@ public class SudokuGeneratorDriver {
             }
         }
     }
+
 
     private static void create() {
         board.clear();

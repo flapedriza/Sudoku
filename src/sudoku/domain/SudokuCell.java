@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 /**
  * Created by Adri on 12/11/15.

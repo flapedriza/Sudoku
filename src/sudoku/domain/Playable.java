@@ -2,7 +2,7 @@
  * Created by victor on 11/11/2015.
  */
 
-package main.sudoku;
+package sudoku.domain;
 
 // aquesta interface és la que ens permetrà fer servir stats tant amb game com amb board.
 

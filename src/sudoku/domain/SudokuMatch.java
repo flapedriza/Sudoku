@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 import java.util.AbstractMap;
 
@@ -32,7 +32,7 @@ public class SudokuMatch extends Match {
         this.game = game;
     }
     AbstractMap.SimpleEntry<String, Pair> getInfo() {
-        return newSimpleEntry<String, Pair> (game.toString(), new Pair(((int) (System.currentTimeMillis()- time) /1000), hints));
+        return new SimpleEntry<String, Pair> (game.toString(), new Pair(((int) (System.currentTimeMillis()- time) /1000), hints));
     }
     public void setValueCell(int val, int col, int row){
         game.setValueCell(val,col,row);

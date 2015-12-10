@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 import java.util.Iterator;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 /**
  * Created with IntelliJ IDEA.

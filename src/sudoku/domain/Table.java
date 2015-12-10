@@ -1,4 +1,4 @@
-package main.sudoku;
+package sudoku.domain;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
