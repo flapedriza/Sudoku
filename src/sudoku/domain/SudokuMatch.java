@@ -1,6 +1,6 @@
 package sudoku.domain;
 
-import java.util.AbstractMap;
+import java.util.*;
 
 /**
  * Created by Adri on 2/12/15.
@@ -36,6 +36,43 @@ public class SudokuMatch extends Match {
     }
     public void setValueCell(int val, int col, int row){
         game.setValueCell(val,col,row);
+    }
+    public void setCellNumber(int i, int j, int val) {
+        return SudokuGame.getCellPossibleNumbers(i,j);
+    }
+    SimpleEntry<Integer, Integer> setRandomCell() {
+        SimpleEntry<Integer, Integer> cellFilled = null;
+        if (!SudokuGame.isAllBoardFilled() && hints >= 1) {
+            hints--;
+            Random r = new Random(System.nanoTime());
+            int lineStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
+            int columnStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
+            boolean inserted = false;
+            while(!inserted) {
+                if (SudokuGame.getCellNumber(lineStart, columnStart) == 0) {
+                    SudokuGame.setCellNumber(lineStart, columnStart, board.getCellNumber(lineStart, columnStart));
+                    cellFilled = new SimpleEntry<Integer, Integer>(lineStart, columnStart);
+                    inserted = true;
+                }
+                else {
+                    if (columnStart == 8) {
+                        if (lineStart == 8) {
+                            lineStart = 0;
+                            columnStart = 0;
+                        }
+                        else {
+                            lineStart++;
+                            columnStart = 0;
+                        }
+                    }
+                    else
+                        columnStart++;
+                }
+            }
+        }
+        if (cellFilled == null)
+            cellFilled = new SimpleEntry<Integer, Integer>(-1, -1);
+        return cellFilled;
     }
     public boolean Correct() {
         if (game.Correct()) {
