@@ -1,6 +1,8 @@
 package sudoku.domain;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.Random;
 
 /**
  * Created by Adri on 2/12/15.
