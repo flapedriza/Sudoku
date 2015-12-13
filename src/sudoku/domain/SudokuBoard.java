@@ -143,6 +143,11 @@ class SudokuBoard {
         }
     }
 
+    public String toString() {
+        String ret = "";
+        return ret;
+    }
+
     /**
      * Print the SudokuBoard and the table
      */

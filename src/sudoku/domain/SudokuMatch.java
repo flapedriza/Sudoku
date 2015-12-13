@@ -2,6 +2,7 @@ package sudoku.domain;
 
 import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -39,12 +40,12 @@ public class SudokuMatch extends Match {
     public void setValueCell(int val, int col, int row){
         game.setValueCell(val,col,row);
     }
-    public void setCellNumber(int i, int j, int val) {
-        return SudokuGame.getCellPossibleNumbers(i,j);
+    public ArrayList<Integer> getCellNumbers(int i, int j, int val) {
+        return game.getCellPossibleNumbers(i,j);
     }
     SimpleEntry<Integer, Integer> setRandomCell() {
         SimpleEntry<Integer, Integer> cellFilled = null;
-        if (!SudokuGame.isAllBoardFilled() && hints >= 1) {
+        if (!game.isAllBoardFilled() && hints >= 1) {
             hints--;
             Random r = new Random(System.nanoTime());
             int lineStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
