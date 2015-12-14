@@ -20,9 +20,8 @@ class SudokuBoard {
      * @param size
      * @throws OutOfRangeException
      */
-    public SudokuBoard(int size)  throws OutOfRangeException  {
+    public SudokuBoard(int size) {
         this.size = size;
-        if (size != 9 && size != 16 && size != 4) throw new OutOfRangeException();
         board = new ArrayList<>();
         rows = new ArrayList<>();
         cols = new ArrayList<>();
@@ -43,7 +42,7 @@ class SudokuBoard {
         }
     }
 
-    SudokuBoard(String board, int size) throws OutOfRangeException {
+    SudokuBoard(String board, int size) {
         this(size);
         String[] temp = board.split("-");
         for(int i = 1; i<= size; ++i) {
@@ -58,7 +57,7 @@ class SudokuBoard {
      * @param board
      * @throws OutOfRangeException
      */
-    public SudokuBoard(SudokuBoard board) throws OutOfRangeException {
+    public SudokuBoard(SudokuBoard board) {
         this(board.getSudokuSize());
         for(int i=1;i<=size;++i) {
             for(int j=1;j<=size;++j) {
@@ -88,9 +87,7 @@ class SudokuBoard {
      * @param column
      * @throws OutOfRangeException
      */
-    public boolean setValueCell(int value, int row, int column) throws OutOfRangeException {
-        if(row <= 0 || row > size || column <= 0 || column > size) throw new OutOfRangeException();
-        if(value < 0 || value > size) throw new OutOfRangeException();
+    public boolean setValueCell(int value, int row, int column) {
         if(value == 0) {
             erase(row, column);
             return true;
@@ -121,7 +118,7 @@ class SudokuBoard {
      * @return
      * @throws OutOfRangeException
      */
-    public TreeSet<Integer> falten(int x, int y) throws OutOfRangeException{
+    public TreeSet<Integer> falten(int x, int y) {
         int reg = region(x, y);
         TreeSet<Integer> a = new TreeSet<>(rows.get(x-1).falten);
         TreeSet<Integer> b = new TreeSet<>(cols.get(y-1).falten);
@@ -138,7 +135,7 @@ class SudokuBoard {
      * @param column
      * @throws OutOfRangeException
      */
-    public void erase (int row,int column ) throws OutOfRangeException{
+    public void erase (int row,int column ) {
         buides.add(numFromRowCol(new Pair(row, column)));
         int reg = region(row, column);
         Row rowz = rows.get(row-1);
@@ -213,12 +210,9 @@ class SudokuBoard {
      */
     public void clear() {
         for(int i=0;i<size;++i) {
-            for(int j=0;j<size;++j)
-                try {
-                    erase(i+1, j+1);
-                } catch (OutOfRangeException e) {
-                    e.printStackTrace();
-                }
+            for (int j = 0; j < size; ++j){
+                erase(i + 1, j + 1);
+            }
         }
     }
 
@@ -227,13 +221,13 @@ class SudokuBoard {
      * @throws InvalidNumberInCellException
      * @throws OutOfRangeException
      */
-    public void read() throws InvalidNumberInCellException, OutOfRangeException {
+    public void read(){
         Scanner reader = new Scanner(System.in);
         for(int i=0;i<size;++i) {
             for(int j=0;j<size;++j) {
                 int val = reader.nextInt();
                 if(val == 0) erase(i+1, j+1);
-                else if(!setValueCell(val, i+1, j+1)) throw new InvalidNumberInCellException();
+                else if(!setValueCell(val, i+1, j+1));
             }
         }
     }

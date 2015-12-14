@@ -5,28 +5,16 @@ public class Main {
     public static void main(String[] args) {
 	// write your code her
         SudokuBoard board = null;
-        try {
-            board = new SudokuBoard(9);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        board = new SudokuBoard(9);
         /*try {
             board.read();
         } catch (InvalidNumberInCellException | OutOfRangeException e) {
             e.printStackTrace();
         }*/
         SudokuGenerator gen = null;
-        try {
-            gen = new SudokuGenerator(SudokuGenerator.Difficulty.EASY, 9);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        gen = new SudokuGenerator(SudokuGenerator.Difficulty.EASY, 9);
         gen.generate(board);
-        try {
-            gen.removeCells(board, 25);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        gen.removeCells(board, 25);
         board.print();
         SudokuSolver2 solver = new SudokuSolver2();
         int res = solver.uniqueSolution(board);

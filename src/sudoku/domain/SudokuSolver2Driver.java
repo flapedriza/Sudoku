@@ -10,26 +10,12 @@ public class SudokuSolver2Driver {
     static SudokuSolver2 solv;
     static Scanner reader = new Scanner(System.in);
     private static void createBoard()  {
-        for (;;) {
             System.out.println("Tamany(4, 9, 16): ");
             int size = reader.nextInt();
-            try {
-                board = new SudokuBoard(size);
-                break;
-            } catch (OutOfRangeException e) {
-                System.out.println("Tamany no vàlid, torneu-ho a intentar");
-            }
-        }
-        System.out.println("Introdueix el Sudoku");
-        for(;;) {
-            try {
-                board.read();
-                break;
-            } catch (InvalidNumberInCellException | OutOfRangeException ex) {
-                System.out.println("S'ha assignat un valor il·legal o fora de rang a una cel·la, torneu a introduïr el sudoku");
-                board.clear();
-            }
-        }
+            board = new SudokuBoard(size);
+            System.out.println("Introdueix el Sudoku");
+            board.read();
+
 
     }
     private static void es_solucio_unica(){

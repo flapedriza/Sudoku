@@ -17,11 +17,7 @@ public class SudokuSolver2 {
 
     public SudokuBoard solve(SudokuBoard board) {
         if(this.board != null) this.board = null;
-        try {
-            this.board = new SudokuBoard(board);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        this.board = new SudokuBoard(board);
         ArrayList<Integer> posicions = new ArrayList<>();
         for(Integer i : board.getBuides()) posicions.add(i);
         Boolean b = backtrack(posicions, this.board);
@@ -32,22 +28,14 @@ public class SudokuSolver2 {
     //Retorna 0 si no té solució, 1 si en té però no és única i 2 si té solució única.
     public int uniqueSolution(SudokuBoard board) {
         SudokuBoard b1 = null;
-        try {
-            b1 = new SudokuBoard(board);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        b1 = new SudokuBoard(board);
         ArrayList<Integer> posicions = new ArrayList<>();
         for(Integer i : board.getBuides()) posicions.add(i);
         ArrayList<Integer> posicions2 = new ArrayList<>(posicions);
         if(!backtrack(posicions, b1)) return 0;
         Collections.shuffle(posicions2);
         SudokuBoard b2 = null;
-        try {
-            b2 = new SudokuBoard(board);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        b2 = new SudokuBoard(board);
         if(!backtrack(posicions2, b2)) return 0;
         if(!b1.equals(b2)) return 1;
         return 2;
@@ -62,23 +50,11 @@ public class SudokuSolver2 {
         posicions.remove(0);
         Pair rc = rowColFromNum(act, board.getSudokuSize());
         TreeSet<Integer> set = null;
-        try {
-            set = board.falten(rc.first, rc.second);
-        } catch (OutOfRangeException e) {
-            e.printStackTrace();
-        }
+        set = board.falten(rc.first, rc.second);
         for(int val : set) {
-            try {
-                board.setValueCell(val, rc.first, rc.second);
-            } catch (OutOfRangeException e) {
-                e.printStackTrace();
-            }
+            board.setValueCell(val, rc.first, rc.second);
             if(backtrack(posicions, board)) return true;
-            try {
-                board.erase(rc.first, rc.second);
-            } catch (OutOfRangeException e) {
-                e.printStackTrace();
-            }
+            //board.erase(rc.first, rc.second);
         }
         posicions.add(0,act);
         return false;

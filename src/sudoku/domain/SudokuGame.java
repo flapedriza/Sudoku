@@ -1,10 +1,10 @@
-/*package sudoku.domain;
+package sudoku.domain;
 
 import java.util.TreeSet;
 
 /**
  * Created by Adri on 2/12/15.
- *
+ */
 public class SudokuGame extends Game {
 
         private SudokuBoard boardSudoku;
@@ -31,19 +31,11 @@ public class SudokuGame extends Game {
         }
 
         TreeSet<Integer> getCellPossibleNumbers(int i, int j) {
-            try {
-                return boardSudoku.falten(i, j);
-            } catch (OutOfRangeException e) {
-                e.printStackTrace();
-            }
+            return boardSudoku.falten(i, j);
         }
 
         void setCellNumber (int i, int j, int number) {
-            try {
                 boardSudoku.setValueCell(number,i, j);
-            } catch (OutOfRangeException e) {
-                e.printStackTrace();
-            }
         }
 
         boolean isCorrectSudoku() {
@@ -61,6 +53,7 @@ public class SudokuGame extends Game {
         Integer sudokuSolve () {
             sudSolv = new SudokuSolver2();
             boardSudoku = sudSolv.solve(boardSudoku);
+            return 1;
         }
 
         boolean isAllBoardFilled() {
@@ -69,4 +62,4 @@ public class SudokuGame extends Game {
     }
 
 
-}*/
+}

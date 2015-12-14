@@ -1,4 +1,4 @@
-/*package sudoku.domain;
+package sudoku.domain;
 
 import java.sql.SQLException;
 import java.util.AbstractMap;
@@ -9,7 +9,7 @@ import sudoku.data.DataController;
 import java.util.ArrayList;
 /**
  * Created by Adri on 14/12/15.
- *
+ */
 public class DomainController {
     private DataController dataController;
     private User User;
@@ -100,4 +100,3 @@ public class DomainController {
         return dataController.getSavedGames(User.username);
     }
 }
-*/
