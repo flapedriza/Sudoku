@@ -14,15 +14,7 @@ public class SudokuGeneratorDriver {
 
         System.out.print("Tamany(4, 9, 16): ");
         int size = reader.nextInt();
-        for (;;) {
-            try {
                 board = new SudokuBoard(size);
-                break;
-            } catch (OutOfRangeException exc) {
-                System.out.print("Tamany no vàlid, torneu-ho a intentar\nTamany(4, 9, 16): ");
-                size = reader.nextInt();
-            }
-        }
         System.out.print("Dificultat(Facil, Normal, Dificil): ");
         String dif = reader.next();
         SudokuGenerator.Difficulty difficulty;
@@ -36,15 +28,7 @@ public class SudokuGeneratorDriver {
             default: difficulty = SudokuGenerator.Difficulty.NORMAL;
                 break;
         }
-        for (;;) {
-            try {
-                gen = new SudokuGenerator(difficulty, size);
-                break;
-            } catch (OutOfRangeException exc1) {
-                System.out.println("Tamany no vàlid, torneu-ho a intentar");
-                size = reader.nextInt();
-            }
-        }
+        gen = new SudokuGenerator(difficulty, size);
     }
 
     private static void generate() {
@@ -73,13 +57,7 @@ public class SudokuGeneratorDriver {
     private static void removeCells() {
         System.out.println("Quantes caselles cal esborrar?");
         int val = reader.nextInt();
-        for(;;) {
-            try {
-                gen.removeCells(board, val);
-            } catch (OutOfRangeException e) {
-                val = reader.nextInt();
-            }
-        }
+        gen.removeCells(board, val);
     }
 
 

@@ -4,6 +4,7 @@ import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.TreeSet;
 
 /**
  * Created by Adri on 2/12/15.
@@ -30,7 +31,7 @@ public class SudokuMatch extends Match {
     public void setBoard(SudokuBoard board) {
         this.board = board;
     }
-    SudokuGame getGame() {return SudokuGame;}
+    SudokuGame getGame() {return game;}
     public void setGame(SudokuGame game) {
         this.game = game;
     }
@@ -38,10 +39,11 @@ public class SudokuMatch extends Match {
         return new SimpleEntry<String, Pair> (game.toString(), new Pair(((int) (System.currentTimeMillis()- time) /1000), hints));
     }
     public void setValueCell(int val, int col, int row){
-        game.setValueCell(val,col,row);
+        game.setCellNumber(val,col,row);
     }
     public ArrayList<Integer> getCellNumbers(int i, int j, int val) {
-        return game.getCellPossibleNumbers(i,j);
+        TreeSet<Integer> set = game.getCellPossibleNumbers(i,j);
+        return new ArrayList<>(set);
     }
     SimpleEntry<Integer, Integer> setRandomCell() {
         SimpleEntry<Integer, Integer> cellFilled = null;
@@ -52,8 +54,8 @@ public class SudokuMatch extends Match {
             int columnStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
             boolean inserted = false;
             while(!inserted) {
-                if (SudokuGame.getCellNumber(lineStart, columnStart) == 0) {
-                    SudokuGame.setCellNumber(lineStart, columnStart, board.getCellNumber(lineStart, columnStart));
+                if (game.getCellNumber(lineStart, columnStart) == 0) {
+                    game.setCellNumber(lineStart, columnStart, board.getValueCell(lineStart, columnStart));
                     cellFilled = new SimpleEntry<Integer, Integer>(lineStart, columnStart);
                     inserted = true;
                 }
@@ -78,7 +80,7 @@ public class SudokuMatch extends Match {
         return cellFilled;
     }
     public boolean Correct() {
-        if (game.Correct()) {
+        if (game.isAllBoardFilled()){
             time = (int) (System.currentTimeMillis() - time) / 1000;
             return true;
         }

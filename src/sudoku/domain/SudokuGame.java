@@ -34,12 +34,8 @@ public class SudokuGame extends Game {
             return boardSudoku.falten(i, j);
         }
 
-        void setCellNumber (int i, int j, int number) {
+        void setCellNumber (int number, int i, int j) {
                 boardSudoku.setValueCell(number,i, j);
-        }
-
-        boolean isCorrectSudoku() {
-            return boardSudoku.isBoardCorrect();
         }
 
         void printBoard() {
@@ -59,7 +55,5 @@ public class SudokuGame extends Game {
         boolean isAllBoardFilled() {
             return boardSudoku.getBuides().isEmpty();
         }
-    }
-
-
 }
+
