@@ -14,7 +14,6 @@ public class Match extends Game implements java.io.Serializable {
     int time;
     int hints; //número de pistes que porta el player.
     int result; //resultat de puntuació final del Match.
-
     //private Player Payer;     //No sabem si es fa així.
 
     public Match(int GameId, /*int PlayerId, */int difficult) {
