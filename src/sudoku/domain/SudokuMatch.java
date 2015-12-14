@@ -25,8 +25,7 @@ public class SudokuMatch extends Match {
         GameId = match.GameId;
         board = match.board;
     }
-    public int getGameId() {return GameId;}
-    public void setGameId(int GameId) {this.GameId = GameId;}
+
     SudokuBoard getBoard() {return board;}
     public void setBoard(SudokuBoard board) {
         this.board = board;
@@ -50,8 +49,8 @@ public class SudokuMatch extends Match {
         if (!game.isAllBoardFilled() && hints >= 1) {
             hints--;
             Random r = new Random(System.nanoTime());
-            int lineStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
-            int columnStart = r.nextInt(board.getSudokuSize()*board.getSudokuSize());
+            int lineStart = r.nextInt(board.getSudokuSize());
+            int columnStart = r.nextInt(board.getSudokuSize());
             boolean inserted = false;
             while(!inserted) {
                 if (game.getCellNumber(lineStart, columnStart) == 0) {

@@ -35,7 +35,7 @@ public class SudokuGame extends Game {
         }
 
         void setCellNumber (int number, int i, int j) {
-                boardSudoku.setValueCell(number,i, j);
+                boardSudoku.setValueCell(number,i+1, j+1);
         }
 
         void printBoard() {
