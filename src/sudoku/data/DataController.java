@@ -13,7 +13,7 @@ public class DataController {
 
     public DataController () {
         database = new Database();
-        //database.createDatabaseSchema();
+        database.createDatabaseSchema();
     }
 
     public boolean existUser(String username, String password) {

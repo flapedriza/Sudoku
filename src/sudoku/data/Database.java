@@ -30,10 +30,21 @@ public class Database {
         Statement stmt = null;
         try {
             stmt = conn.createStatement();
-
-            ArrayList<String> sqlSentences = readFile("./database_schema_v0.1.3.sql");
+            ArrayList<String> sqlSentences = new ArrayList<>();
+            sqlSentences.add("CREATE TABLE IF NOT EXISTS Users (username VARCHAR(15) PRIMARY KEY,"
+                    + "password VARCHAR(45), score INTEGER DEFAULT 0, enabled INTEGER DEFAULT 1);");
+            sqlSentences.add("CREATE TABLE IF NOT EXISTS Board (idBoard INTEGER PRIMARY KEY ASC,"
+                    + "board VARCHAR(1000), size INTEGER);");
+            sqlSentences.add("CREATE TABLE IF NOT EXISTS SysBoard (idBoard INTEGER PRIMARY KEY ASC," +
+                    "board VARCHAR(1000), boardSolved VARCHAR(1000), size INTEGER);");
+            sqlSentences.add("CREATE TABLE IF NOT EXISTS SavedGame (idSavedGame INTEGER PRIMARY KEY ASC," +
+                    "timeElapsed INTEGER, ended INTEGER DEFAULT 0, Board_idBoard INTEGER, boardSolved" +
+                    "VARCHAR(1000), boardState VARCHAR(1000), Users_username VARCHAR(15), hintsRemaining INTEGER);");
+            sqlSentences.add("CREATE TABLE IF NOT EXISTS Record (Users_username VARCHAR(15), Board_idBoard INTEGER,"+
+                    "timeElapsed INTEGER,  PRIMARY KEY (Users_username, Board_idBoard));");
             for (int i = 0; i < sqlSentences.size(); i++)
                 stmt.executeUpdate(sqlSentences.get(i));
+
             conn.commit();
         } catch (SQLException e) {
             e.printStackTrace();
