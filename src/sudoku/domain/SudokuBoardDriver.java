@@ -121,9 +121,11 @@ public class SudokuBoardDriver {
                     break;
                 case 7: board.clear();
                     break;
-                default: option = 8;
+                case 8: System.out.println(board.toString());
+                    break;
+                default: option = 9;
                     break;
             }
-        } while(option != 8);
+        } while(option != 9);
     }
 }

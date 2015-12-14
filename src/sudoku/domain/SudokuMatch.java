@@ -1,4 +1,4 @@
-package sudoku.domain;
+/*package sudoku.domain;
 
 import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * Created by Adri on 2/12/15.
- */
+ *
 public class SudokuMatch extends Match {
 
     private SudokuBoard board;
@@ -84,4 +84,4 @@ public class SudokuMatch extends Match {
         }
         return false;
     }
-}
+}*/

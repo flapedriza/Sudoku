@@ -43,6 +43,16 @@ class SudokuBoard {
         }
     }
 
+    SudokuBoard(String board, int size) throws OutOfRangeException {
+        this(size);
+        String[] temp = board.split("-");
+        for(int i = 1; i<= size; ++i) {
+            for(int j = 1; j<= size; ++j){
+                setValueCell(Integer.parseInt(temp[numFromRowCol(new Pair(i, j))]), i, j);
+            }
+        }
+    }
+
     /**
      * The cells takes values for a board.
      * @param board
@@ -145,8 +155,18 @@ class SudokuBoard {
 
     public String toString() {
         String ret = "";
+        for(int i = 0; i<size; ++i) {
+            for(int j = 0; j<size; ++j) {
+                if(i == 0 && j == 0) ret += getValueCell(i, j).toString();
+                else {
+                    String temp = "-"+getValueCell(i, j).toString();
+                    ret += temp;
+                }
+            }
+        }
         return ret;
     }
+
 
     /**
      * Print the SudokuBoard and the table
@@ -223,7 +243,7 @@ class SudokuBoard {
      * @param row
      * @param column
      */
-    public int getValueCell(int row, int column) {
+    public Integer getValueCell(int row, int column) {
         return board.get(row).get(column).getValue();
     }
 

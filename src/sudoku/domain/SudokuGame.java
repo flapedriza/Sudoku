@@ -1,24 +1,21 @@
-package sudoku.domain;
+/*package sudoku.domain;
 
 import java.util.TreeSet;
 
 /**
  * Created by Adri on 2/12/15.
- */
+ *
 public class SudokuGame extends Game {
 
         private SudokuBoard boardSudoku;
+        private SudokuSolver2  sudSolv;
 
         SudokuGame() {
             boardSudoku = null;
         }
 
-        SudokuGame(SudokuBoard board, int size) {
-            try {
-                boardSudoku = new SudokuBoard(board);
-            } catch (OutOfRangeException e) {
-                e.printStackTrace();
-            }
+        SudokuGame(String board, int size) {
+            boardSudoku = new SudokuBoard(board, size);
         }
 
         SudokuGame(SudokuBoard board) {
@@ -61,18 +58,15 @@ public class SudokuGame extends Game {
             return boardSudoku.toString();
         }
 
-        void partialSolve() {
-            SudokuSolver2.nonTrivialSudokuBoard(boardSudoku);
-        }
-
         Integer sudokuSolve () {
-            return (int) SudokuSolver2.runSolver(boardSudoku);
+            sudSolv = new SudokuSolver2();
+            boardSudoku = sudSolv.solve(boardSudoku);
         }
 
         boolean isAllBoardFilled() {
-            return boardSudoku.isAllBoardFilled();
+            return boardSudoku.getBuides().isEmpty();
         }
     }
 
 
-}
+}*/
