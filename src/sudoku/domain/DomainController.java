@@ -1,11 +1,10 @@
 package sudoku.domain;
 
+import sudoku.data.DataController;
+
 import java.sql.SQLException;
 import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
-
-import sudoku.data.DataController;
-
 import java.util.ArrayList;
 /**
  * Created by Adri on 14/12/15.
@@ -158,4 +157,6 @@ public class DomainController {
     public void solveMatch() {
         match.getGame().sudokuSolve();
     }
+
+    public void checkBoardI()
 }

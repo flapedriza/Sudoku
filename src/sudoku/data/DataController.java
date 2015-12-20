@@ -1,7 +1,7 @@
 package sudoku.data;
 
 /**
- * Created by Adri on 14/12/15.
+ * Created by Francesc on 14/12/15.
  */
 import java.sql.SQLException;
 import java.util.AbstractMap;
